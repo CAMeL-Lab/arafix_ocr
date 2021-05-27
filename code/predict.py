@@ -2,13 +2,17 @@ import os
 import subprocess
 
 
-def disambig():
-	print(1)
-
-
 def get_bookname():
-	bookname = input("Enter the name of book: ")
-	
+	books = os.listdir("data")
+	for i,book in enumerate(books):
+		print(i+1," - ",book)
+
+	booknumber = input("Select the book: ")
+	bookname = books[int(booknumber)-1]
+	print(bookname, " selected")
+	bookname = "data/" + bookname
+	return bookname
+
 def get_model():
 	
 	models = os.listdir("models")
@@ -51,12 +55,31 @@ def get_mapping():
 		mappingname = "mappings/empircal/" + mappingname
 
 def get_range():
+	pages = os.listdir(bookname+"/ocr/")
+	print("Number of pages available to post-process: ",len(pages))
 	start_page = input("Enter start page for prediction: ")
 	end_page = input("Enter end page for prediction: ")
 
+def encode();
+
+def write_encoded():
 
 
+def predict():
+	spec_prefix = bookname + "_" + modelname + "_" + mappingname
+	os.mkdir(bookname+"/post_edited/")
+	os.mkdir(bookname+"/post_edited/"+spec_prefix)
+
+	for i in range(start_page,end_page+1):
+		print("wow")
+
+
+bookname = ""
 os.chdir("..")
+bookname = get_bookname()
+print()
 get_model()
 print()
 get_mapping()
+print()
+get_range()
