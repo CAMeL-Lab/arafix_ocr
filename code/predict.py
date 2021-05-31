@@ -1,10 +1,16 @@
 import os 
 import subprocess
 import configparser
+import pyarabic.araby as araby
+import pyarabic.number as number
+import argparse
 
+# arabic letters range
+begin = int("0600", 16)
+end = int("06FF", 16)
 
 def encode(line):
-	new_l = []
+    new_l = []
     line = araby.strip_shadda(araby.strip_harakat(line)).replace("آ", "ا").replace("إ", "ا").replace("أ", "ا")
     new_line = ""
     for letter in line:
@@ -15,7 +21,7 @@ def encode(line):
     
     for w in line.split():
         i = 0
-        for c in w:
+       	for c in w:
             if len(w)==1:
                 new_l.append(c)
             elif i == len(w) - 1:
@@ -28,45 +34,118 @@ def encode(line):
     return "<s> " + " ".join(new_l) + " </s>"
 
 def write_encoded():
+
 	try:
-		os.mkdir("data/" + parameters[book_name]+ "/" + parameters[book_name] + "_ocr_encoded/")
+		os.mkdir("data/" + parameters["book_name"]+ "/" + parameters["book_name"] + "_raw_ocr_encoded/")
 	except:
 		pass
 
-	for i in range(parameters[start_page],parameters[end_page]+1):
-		original_file = open("data/" + parameters[book_name]+ "/" + parameters[book_name] +"_ocr/" + "ocr_" + str(i) + ".txt")
+	for i in range(parameters["start_page"],parameters["end_page"]+1):
+		os.system("clear")
+		print("Encoding raw ocr for book: ", parameters["book_name"])
+		print("Start Page: ", parameters["start_page"])
+		print("End Page: ", parameters["end_page"])
+		print("Current Page: ", i)
+		original_file = open("data/" + parameters["book_name"]+ "/" + parameters["book_name"] +"_raw_ocr/" + "ocr_space_output_" + str(i) + ".txt","r")
 		encoded_text = encode(original_file.read())
-		encoded_file = open("data/" + parameters[book_name]+ "/" + parameters[book_name] + "_ocr_encoded/" + "ocr_encoded_" + str(i) + ".txt")
+		encoded_file = open("data/" + parameters["book_name"]+ "/" + parameters["book_name"] + "_raw_ocr_encoded/" + "ocr_space_output_encoded_" + str(i) + ".txt","w")
 		encoded_file.write(encoded_text)
-		original.close()
+		original_file.close()
 		encoded_file.close()
 
+def decode(l):
+	#     l = l.replace("+", "#")
+    # there is an unexpected case in disambig results - #A #B#. 
+    # we are unsure of whether to split or merge this case, and currently we are spliting
+    l = l.replace("# #", "").replace("+ ", "").replace("</s>", "").replace("<s>", "")
+    l = l.replace("# #", "").replace("+ ", "").replace("</s>", "").replace("<s>", "")
+    l = l.replace("# ", " ").replace(" #", " ")
+    return l
+
+def write_decoded():
+
+	spec_prefix = parameters["book_name"] + "_" + parameters["model_name"] + "_" + parameters["map_name"]	
+	prediction_path = "data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_post_edited/"+ spec_prefix + "/"
+	prediction_path_encoded = "data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_post_edited_encoded/"+ spec_prefix + "/"
+
+	try:
+		os.mkdir("data/" + parameters["book_name"] +"/" + parameters["book_name"] + "_post_edited/")
+	except:
+		pass
+
+	try:
+		os.mkdir(prediction_path)
+	except:
+		pass
+
+
+	for i in range(parameters["start_page"],parameters["end_page"]+1):
+		os.system("clear")
+		print("Decoding predicted output for book: ", parameters["book_name"])
+		print("Start Page: ", parameters["start_page"])
+		print("End Page: ", parameters["end_page"])
+		print("Current Page: ", i)
+
+		original_file = open(prediction_path_encoded + "predicted_encoded_" + str(i) + ".txt","r")
+		decoded_text = decode(original_file.read())
+		decoded_file = open(prediction_path + "predicted_" + str(i) + ".txt","w")
+		decoded_file.write(decoded_text)
+		original_file.close()
+		decoded_file.close()
+
+	os.system("clear")
+	print("Prediction complete!") 
+	print("Results written in: ",prediction_path)
 
 def predict():
-	spec_prefix = parameters[book_name] + "_" + parameters[model_name] + "_" + parameters[mapping_name]
-	os.mkdir("data/" + parameters[book_name] +"/" + parameters[book_name] + "_post_edited/")
-	prediction_path = "data/" + parameters[book_name] + "/" + parameters[book_name] + "_post_edited/"+ parameters[book_name] + "_" spec_prefix + "/"
-	os.mkdir(prediction_path)
+	spec_prefix = parameters["book_name"] + "_" + parameters["model_name"] + "_" + parameters["map_name"]	
+	prediction_path = "data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_post_edited_encoded/"+ spec_prefix + "/"
+	
+	try:
+		os.mkdir("data/" + parameters["book_name"] +"/" + parameters["book_name"] + "_post_edited_encoded/")
+	except:
+		pass
+	try:
+		os.mkdir(prediction_path)
+	except:
+		pass
+
+	for i in range(parameters["start_page"],parameters["end_page"]+1):
+		os.system("clear")
+		print("Predicting output for book: ", parameters["book_name"])
+		print("Start Page: ", parameters["start_page"])
+		print("End Page: ", parameters["end_page"])
+		print("Current Page: ", i)
+		raw_ocr_arg = "data/" + parameters["book_name"]+ "/" + parameters["book_name"] + "_raw_ocr_encoded/" + "ocr_space_output_encoded_" + str(i) + ".txt"
+		predicted_arg = prediction_path + "predicted_encoded_" + str(i) + ".txt"
+		model_arg = "-lm models/" + parameters["model_name"] + " "
+		map_arg = "-map mappings/" + parameters["map_name"] + " "
+		order_arg = "-order " + parameters["order"] + " "
+		text_files = "-text " + raw_ocr_arg + ">" + predicted_arg
+
+		command = "/Users/aizazansari/Downloads/srilm-1.7.3/bin/macosx/disambig " + model_arg + "-keep-unk " + order_arg + map_arg + text_files
+		p = subprocess.getstatusoutput(command)
 
 
-	for i in range(start_page,end_page+1):
-		raw_ocr_arg = "data/" + parameters[book_name]+ "/" + parameters[book_name] + "_ocr_encoded/" + "ocr_encoded_" + str(i) + ".txt"
-		predicted_arg = prediction_path + "predicted_" + str(i) + ".txt"
-        model_arg = "-lm /models/" + parameters[model_name] + " "
-        map_arg = "-map mappings" + parameters[mapping_name] " "
-        order_arg = "-order 8 "
-        text_files = "-text " + raw_ocr_arg + ">" + predicted_arg
-
-        command = "/Users/aizazansari/Downloads/srilm-1.7.3/bin/macosx/disambig " + model_name + "-keep-unk " + order_name + map_name + text_files
-        p = subprocess.getstatusoutput(command)
-
+	os.system("clear")
 
 
 os.chdir("..")
 
-config = configparser.RawConfigParser()
-config.read('config_files/default.cfg')    
-parameters = dict(config.items('predict'))
+parser = argparse.ArgumentParser()
+parser.add_argument("-config", "--config", help="Name of config file")
+args = parser.parse_args()
+config_name = args.config
 
+config = configparser.RawConfigParser()
+config.read('config_files/' + config_name)    
+parameters = dict(config.items('predict'))
+parameters["start_page"] = int(parameters["start_page"])
+parameters["end_page"] = int(parameters["end_page"])
+
+
+write_encoded()
+predict()
+write_decoded()
 
 
