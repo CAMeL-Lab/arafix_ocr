@@ -47,7 +47,10 @@ def write_encoded():
 		print("End Page: ", parameters["end_page"])
 		print("Current Page: ", i)
 		original_file = open("data/" + parameters["book_name"]+ "/" + parameters["book_name"] +"_raw_ocr/" + "ocr_space_output_" + str(i) + ".txt","r")
-		encoded_text = encode(original_file.read())
+		encoded_text = ""
+		for line in original_file:
+			encoded_text = encoded_text + encode(line) + "\n"
+
 		encoded_file = open("data/" + parameters["book_name"]+ "/" + parameters["book_name"] + "_raw_ocr_encoded/" + "ocr_space_output_encoded_" + str(i) + ".txt","w")
 		encoded_file.write(encoded_text)
 		original_file.close()
@@ -147,5 +150,9 @@ parameters["end_page"] = int(parameters["end_page"])
 write_encoded()
 predict()
 write_decoded()
+
+if parameters["keep_scratch"] == "False":
+	os.rmdir("data/" + parameters["book_name"] +"/" + parameters["book_name"] + "_post_edited_encoded/")
+	os.rmdir("data/" + parameters["book_name"] +"/" + parameters["book_name"] + "_raw_ocr_encoded/")
 
 
