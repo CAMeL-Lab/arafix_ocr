@@ -22,9 +22,6 @@ def calculate_bounds():
 	else:
 		parameters["end_page"] = int(files[-1].split("_")[-1].strip(".txt"))
 
-	print(parameters["start_page"])
-	print(parameters["end_page"])
-
 def encode(line):
     new_l = []
     line = araby.strip_shadda(araby.strip_harakat(line)).replace("آ", "ا").replace("إ", "ا").replace("أ", "ا")

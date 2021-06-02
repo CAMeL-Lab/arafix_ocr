@@ -38,6 +38,20 @@ def ocr_space_func(filename, overlay=False, api_key='helloworld', language='eng'
                           )
     return r.content.decode()
 
+
+def get_page_num(filename):
+	started = False
+	number = ""
+	for i in range(len(filename)-1,-1,-1):
+	    
+	    if filename[i].isdigit():
+	        started = True
+	        number = filename[i] + number
+	    else:
+	        if started == True:
+	            break
+	return str(int(number))
+
 def convert_book():
 	
 	raw_path = "data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_raw_images/"
@@ -55,16 +69,21 @@ def convert_book():
 	files = os.listdir(raw_path)
 	files.sort()
 
+	converted_files = os.listdir(ocr_path)
+
 	for i,file_name in enumerate(files):
 	    if not file_name.endswith(".tif"):
 	    	continue
 	    os.system("clear")
 	    print("Converting images to text")
 	    print("Page: ", i+1, " out of ",len(files))
-
-	    page_json = ocr_space_func(filename= raw_path+file_name , language='Ara', api_key = int(parameters["api_key"]))
+	    if parameters["skip_converted"]=="True":
+	    	if "ocr_space_output_" + get_page_num(file_name) + ".txt" in converted_files:
+	    		print("skipping")
+	    		continue
+	    page_json = ocr_space_func(filename= raw_path+file_name , language='Ara', api_key = parameters["api_key"])
 	    page_text = json.loads(page_json)["ParsedResults"][0]["ParsedText"]
-	    output_file = open(ocr_path  + "ocr_space_output_" + str(i) + ".txt", "w", encoding = "utf8")
+	    output_file = open(ocr_path  + "ocr_space_output_" + get_page_num(file_name) + ".txt", "w", encoding = "utf8")
 	    output_file.write(page_text)
 	    output_file.close()
 
