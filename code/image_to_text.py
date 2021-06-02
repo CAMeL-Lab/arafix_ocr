@@ -38,9 +38,9 @@ def ocr_space_func(filename, overlay=False, api_key='helloworld', language='eng'
                           )
     return r.content.decode()
 
-def convert_book()
+def convert_book():
 	
-	raw_path = "data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_scanned/"
+	raw_path = "data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_raw_images/"
 	try:
 		os.mkdir(raw_path)
 	except:
@@ -48,18 +48,21 @@ def convert_book()
 
 	ocr_path = "data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_raw_ocr/"
 	try:
-		os.mkdir(raw_path)
+		os.mkdir(ocr_path)
 	except:
 		pass 
 
+	files = os.listdir(raw_path)
+	files.sort()
 
-	for i in range(parameters["start_page"], parameters["end_page"]):
+	for i,file_name in enumerate(files):
+	    if not file_name.endswith(".tif"):
+	    	continue
 	    os.system("clear")
 	    print("Converting images to text")
-	    print("Start Page: ", parameters["start_page"])
-		print("End Page: ", parameters["end_page"])
-		print("Current Page: ", i)
-	    page_json = ocr_space_func(filename= raw_path + parameters["file_prefix"] + str(i) + ".tiff", language='Ara', api_key = "OCRP7509898A")
+	    print("Page: ", i+1, " out of ",len(files))
+
+	    page_json = ocr_space_func(filename= raw_path+file_name , language='Ara', api_key = int(parameters["api_key"]))
 	    page_text = json.loads(page_json)["ParsedResults"][0]["ParsedText"]
 	    output_file = open(ocr_path  + "ocr_space_output_" + str(i) + ".txt", "w", encoding = "utf8")
 	    output_file.write(page_text)
@@ -72,9 +75,13 @@ os.chdir("..")
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-config", "--config", help="Name of config file")
+parser.add_argument("-bookname", "--bookname", help="Name of book to ocr on")
 args = parser.parse_args()
 config_name = args.config
 
 config = configparser.RawConfigParser()
-config.read('config_files/' + config_name)    
+config.read('configs/' + config_name)    
 parameters = dict(config.items('image_to_text'))
+parameters["book_name"] = args.bookname
+
+convert_book()
