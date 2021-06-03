@@ -9,6 +9,53 @@ import argparse
 begin = int("0600", 16)
 end = int("06FF", 16)
 
+def check_parameters():
+
+	incorrect = False
+
+	books = os.listdir("data")
+	if parameters["book_name"] not in books:
+		print("Book does not exist!")
+		incorrect = True
+
+	configs = os.listdir("configs")
+	if config_name not in configs:
+		print("Config does not exist!")
+		incorrect = True
+
+	if parameters["start_page"]!=None:
+		if not parameters["start_page"].isdigit():
+			print("Start page must be a number!")
+			incorrect = True
+		if parameters["start_page"]<0:
+			print("Start page must be positive!")
+			incorrect = True
+
+	if parameters["end_page"]!=None:
+		if not parameters["end_page"].isdigit():
+			print("End page must be a number!")
+			incorrect = True
+		if parameters["end_page"]<0:
+			print("End page must be positive!")
+			incorrect = True
+
+	if parameters["start_page"]!=None and parameters["end_page"]!=None:
+		if parameters["end_page"]<parameters["start_page"]:
+			print("Start page must be lesser than end page")
+			incorrect = True
+
+	models = os.listdir("models")
+	if parameters["model_name"] not in models:
+		print("Model does not exist!")
+		incorrect = True
+
+	mappings = os.listdir("mappings")
+	if parameters["map_name"] not in mappings:
+		print("Mapping does not exist!")
+		incorrect = True
+
+	if incorrect:
+		exit(0)
 def calculate_bounds():
 	files = os.listdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_raw_ocr/")
 	files.sort()
@@ -149,7 +196,7 @@ def predict():
 os.chdir("..")
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-config", "--config", help="Name of config file")
+parser.add_argument("-config", "--config", help="Name of config file", default="default.txt")
 parser.add_argument("-bookname", "--bookname", help="Name of book to predict on")
 parser.add_argument("-startpage", "--startpage", help="Starting page for prediction of selected book", default=None)
 parser.add_argument("-endpage", "--endpage", help="Ending page for prediction of selected book", default = None)
@@ -163,6 +210,7 @@ config.read('configs/' + config_name)
 parameters = dict(config.items('predict'))
 parameters["book_name"] = args.bookname
 
+check_parameters()
 calculate_bounds()
 write_encoded()
 predict()
