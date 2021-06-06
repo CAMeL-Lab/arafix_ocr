@@ -11,6 +11,17 @@ end = int("06FF", 16)
 
 def check_parameters():
 
+	parameters["book_name"] = args.bookname
+	parameters["start_page"] = args.startpage
+	parameters["end_page"] = args.endpage
+
+	
+	if parameters["start_page"]=="None":
+		parameters["start_page"] = None
+
+	if parameters["end_page"]=="None":
+		parameters["end_page"] = None
+
 	incorrect = False
 
 	books = os.listdir("data")
@@ -18,28 +29,28 @@ def check_parameters():
 		print("Book does not exist!")
 		incorrect = True
 
-	configs = os.listdir("configs")
-	if config_name not in configs:
-		print("Config does not exist!")
-		incorrect = True
-
 	if parameters["start_page"]!=None:
 		if not parameters["start_page"].isdigit():
 			print("Start page must be a number!")
 			incorrect = True
-		if parameters["start_page"]<0:
-			print("Start page must be positive!")
-			incorrect = True
+		else:
+			parameters["start_page"] = int(parameters["start_page"])
+			if parameters["start_page"]<0:
+				print("Start page must be positive!")
+				incorrect = True
 
 	if parameters["end_page"]!=None:
 		if not parameters["end_page"].isdigit():
 			print("End page must be a number!")
 			incorrect = True
-		if parameters["end_page"]<0:
-			print("End page must be positive!")
-			incorrect = True
+		else:
+			parameters["end_page"] = int(parameters["end_page"])
+			if parameters["end_page"]<0:
+				print("End page must be positive!")
+				incorrect = True
 
 	if parameters["start_page"]!=None and parameters["end_page"]!=None:
+
 		if parameters["end_page"]<parameters["start_page"]:
 			print("Start page must be lesser than end page")
 			incorrect = True
@@ -56,17 +67,16 @@ def check_parameters():
 
 	if incorrect:
 		exit(0)
+
+
 def calculate_bounds():
 	files = os.listdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_raw_ocr/")
 	files.sort()
+	files = files[1:]
 
-	if args.startpage:
-		parameters["start_page"] = int(args.startpage)
-	else:
+	if parameters["start_page"]:
 		parameters["start_page"] = int(files[0].split("_")[-1].strip(".txt"))
-	if args.endpage:
-		parameters["end_page"] = int(args.endpage)
-	else:
+	if parameters["end_page"]:
 		parameters["end_page"] = int(files[-1].split("_")[-1].strip(".txt"))
 
 def encode(line):
@@ -203,18 +213,23 @@ parser.add_argument("-endpage", "--endpage", help="Ending page for prediction of
 
 args = parser.parse_args()
 config_name = args.config
+configs = os.listdir("configs")
+
+if config_name not in configs:
+	print("Config does not exist!")
+	exit(0)
 
 config = configparser.RawConfigParser()
 config.read('configs/' + config_name)    
 
 parameters = dict(config.items('predict'))
-parameters["book_name"] = args.bookname
+
 
 check_parameters()
 calculate_bounds()
-write_encoded()
-predict()
-write_decoded()
+# write_encoded()
+# predict()
+# write_decoded()
 
 if parameters["keep_scratch"] == "False":
 	os.rmdir("data/" + parameters["book_name"] +"/" + parameters["book_name"] + "_post_edited_encoded/")
