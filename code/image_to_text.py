@@ -13,6 +13,19 @@ import argparse
 import configparser
 
 
+def check_parameters():
+
+	parameters["book_name"] = args.bookname
+	incorrect = False
+
+	books = os.listdir("data")
+	if parameters["book_name"] not in books:
+		print("Book does not exist!")
+		incorrect = True
+
+	if incorrect:
+		exit(0)
+
 def ocr_space_func(filename, overlay=False, api_key='helloworld', language='eng'):
     """ OCR.space API request with local file.
         Python3.5 - not tested on 2.7
@@ -98,9 +111,17 @@ parser.add_argument("-bookname", "--bookname", help="Name of book to ocr on")
 args = parser.parse_args()
 config_name = args.config
 
+configs = os.listdir("configs")
+
+if config_name not in configs:
+	print("Config does not exist!")
+	exit(0)
+
 config = configparser.RawConfigParser()
 config.read('configs/' + config_name)    
 parameters = dict(config.items('image_to_text'))
-parameters["book_name"] = args.bookname
+
+
+check_parameters()
 
 convert_book()

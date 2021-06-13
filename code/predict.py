@@ -15,7 +15,7 @@ def check_parameters():
 	parameters["start_page"] = args.startpage
 	parameters["end_page"] = args.endpage
 
-	
+
 	if parameters["start_page"]=="None":
 		parameters["start_page"] = None
 
@@ -31,25 +31,21 @@ def check_parameters():
 
 	if parameters["start_page"]!=None:
 		if not parameters["start_page"].isdigit():
-			print("Start page must be a number!")
+			print("Start page must be a positive number!")
 			incorrect = True
 		else:
 			parameters["start_page"] = int(parameters["start_page"])
-			if parameters["start_page"]<0:
-				print("Start page must be positive!")
-				incorrect = True
+	
 
 	if parameters["end_page"]!=None:
 		if not parameters["end_page"].isdigit():
-			print("End page must be a number!")
+			print("End page must be positive a number!")
 			incorrect = True
 		else:
 			parameters["end_page"] = int(parameters["end_page"])
-			if parameters["end_page"]<0:
-				print("End page must be positive!")
-				incorrect = True
 
-	if parameters["start_page"]!=None and parameters["end_page"]!=None:
+
+	if type(parameters["start_page"])==int and type(parameters["end_page"])==int:
 
 		if parameters["end_page"]<parameters["start_page"]:
 			print("Start page must be lesser than end page")
@@ -78,6 +74,10 @@ def calculate_bounds():
 		parameters["start_page"] = int(files[0].split("_")[-1].strip(".txt"))
 	if parameters["end_page"]:
 		parameters["end_page"] = int(files[-1].split("_")[-1].strip(".txt"))
+
+	if parameters["start_page"]>parameters["end_page"]:
+		print("Start page cannot be greater than end page")
+		exit(0)
 
 def encode(line):
     new_l = []
@@ -227,9 +227,9 @@ parameters = dict(config.items('predict'))
 
 check_parameters()
 calculate_bounds()
-# write_encoded()
-# predict()
-# write_decoded()
+write_encoded()
+predict()
+write_decoded()
 
 if parameters["keep_scratch"] == "False":
 	os.rmdir("data/" + parameters["book_name"] +"/" + parameters["book_name"] + "_post_edited_encoded/")
