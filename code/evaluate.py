@@ -100,29 +100,30 @@ def alignFilesBasic(start_page, end_page, OneEncodePrefix, OneEncodeFolder, TwoE
         TwoName = TwoEncodePrefix + str(i) + ".txt"
 
         #"python align_text.py -r ocr_tokenized.txt -c rafed_tokenized.txt -m basic -o sample/sample.ar"
-        command = "python3 " + alignerLocation + " -r " + OneEncodeFolder + OneName + " -c " + TwoEncodeFolder + TwoName 
+        command = "python3 " + alignerLocation + " -s " + OneEncodeFolder + OneName + " -t " + TwoEncodeFolder + TwoName 
         command +=  " -m basic -o " + saveAlignmentAs + results_prefix + str(i) 
 
-
+        print(command)
         p = subprocess.getstatusoutput(command)
+        
 
-
-def align_ground_predicted():
+def align_ground_ocr():
 
 	book_name = parameters["book_name"]
 	sub_folder_one = book_name + "_ground_truth"
-	sub_folder_two = parameters["book_name"] + "_model:" + parameters["model_name"].strip(".lm") + "_map:" + parameters["map_name"].strip(".map")
+	sub_folder_two = book_name + "_raw_ocr"
 
 	save_alignment_as = book_name + "_" + sub_folder_one.replace(book_name + "_", "") + "_with_" + sub_folder_two.replace(book_name + "_", "") + "/"
 	
-	save_alignment_as = "data/" + book_name + "/aligment/" + save_alignment_as
+
+	save_alignment_as = "data/" + book_name + "/" + book_name + "_alignment/" + save_alignment_as
 	file_extension = ".txt"
 
 	start_page = parameters["start_page"]
 	end_page = parameters["end_page"]
 
 	try:
-		os.mkdir("data/" + book_name + "alignment/")
+		os.mkdir("data/" + book_name + "/" + book_name + "_alignment/")
 
 	except:
 		pass
@@ -138,13 +139,42 @@ def align_ground_predicted():
 	truth_path = "data/" + book_name + "/" + sub_folder_one + "/"
 	truth_prefix = 'ground_truth_' 
 
-	hypothesis_path = "data/" + book_name + "/" + book_name + "_post_edited/" + sub_folder_two + "/"
-	hypothesis_prefix = "predicted_"
+	hypothesis_path = "data/" + book_name + "/" + sub_folder_two + "/"
+	hypothesis_prefix = "ocr_space_output_"
 
-	results_prefix = "ground_predicted_"
+	results_prefix = "ground_raw_ocr_"
 
 	alignFilesBasic(parameters["start_page"], parameters["end_page"], truth_prefix, truth_path, hypothesis_prefix, hypothesis_path, save_alignment_as, alignerLocation, results_prefix)
+	return
+	calculate_stats(start_page, end_page, save_alignment_as, results_prefix)
 
+
+def calculate_stats(start_page, end_page, save_alignment_as, results_prefix):
+
+	summary_df = pd.DataFrame()
+	for i in range(start_page, end_page+1):
+		try:
+			df = parseOssamaBasic(save_alignment_as + results_prefix + str(i) + ".basic")
+			df.to_csv(save_alignment_as + results_prefix + str(i) + ".csv")
+
+			my_dict = dict(df["operation"].value_counts())
+			my_dict["page_num"] = i
+
+			summary_df = summary_df.append(my_dict, ignore_index = True)
+		except Exception as e:
+			print(e)
+
+	## WER CALCULATION, CHANGE IF NEEDED
+	# WER = (del + ins + sub) / (ok + sub + del)
+	temp_dict = summary_df.sum()
+	del_, ins, ok, sub = temp_dict["DEL"], temp_dict["INS"], temp_dict["OK"], temp_dict["SUB"]
+	temp_dict["WER"] = round((del_ + ins + sub) / (ok + sub + del_), 5)
+	
+	# write to file
+	summary_df.to_csv(save_alignment_as + results_prefix + "all.csv")
+
+
+        
 
 os.chdir("..")
 
@@ -170,4 +200,6 @@ parameters = dict(config.items('evaluate'))
 check_parameters()
 calculate_bounds()
 
-align_ground_predicted()
+
+align_ground_ocr()
+# align_ground_predicted()
