@@ -45,12 +45,6 @@ def check_parameters():
 			parameters["end_page"] = int(parameters["end_page"])
 
 
-	if type(parameters["start_page"])==int and type(parameters["end_page"])==int:
-
-		if parameters["end_page"]<parameters["start_page"]:
-			print("Start page must be lesser than end page")
-			incorrect = True
-
 	models = os.listdir("models")
 	if parameters["model_name"] not in models:
 		print("Model does not exist!")
@@ -70,9 +64,9 @@ def calculate_bounds():
 	files.sort()
 	files = files[1:]
 
-	if parameters["start_page"]:
+	if parameters["start_page"]==None:
 		parameters["start_page"] = int(files[0].split("_")[-1].strip(".txt"))
-	if parameters["end_page"]:
+	if parameters["end_page"]==None:
 		parameters["end_page"] = int(files[-1].split("_")[-1].strip(".txt"))
 
 	if parameters["start_page"]>parameters["end_page"]:
