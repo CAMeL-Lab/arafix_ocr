@@ -109,7 +109,6 @@ def alignFilesBasic(start_page, end_page, OneEncodePrefix, OneEncodeFolder, TwoE
         command +=  " -m basic -o " + saveAlignmentAs + results_prefix + str(i) 
 
         p = subprocess.getstatusoutput(command)
-        print(p)
 
 def strip_text(raw_text):
 	no_punc_text = "".join([c for c in raw_text if (c not in arabic_punctuation and 1536 <= ord(c) <= 1791) or c == " " ])
@@ -120,16 +119,15 @@ def strip_files():
 	spec_prefix = parameters["book_name"] + "_model_" + parameters["model_name"][:-3] + "_map_" + parameters["map_name"][:-4]	
 
 	for i in range(parameters["start_page"],parameters["end_page"]+1):
-		print(1)
+
 		ground_file = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_ground_truth/"+"ground_truth_"+str(i)+".txt","r")
 		ocr_file = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_raw_ocr/"+"ocr_space_output_"+str(i)+".txt","r")
 		predicted_file = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_post_edited/"+spec_prefix+"/predicted_"+str(i)+".txt","r")
-		print(2)
+
 		ground_file_stripped = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_ground_truth/"+"ground_truth_stripped_"+str(i)+".txt","w")
 		ocr_file_stripped = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_raw_ocr/"+"ocr_space_output_stripped_"+str(i)+".txt","w")
 		predicted_file_stripped = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_post_edited/"+spec_prefix+"/predicted_stripped_"+str(i)+".txt","w")
 
-		print(3)
 		ground_file_stripped.write(strip_text(ground_file.read()))
 		ocr_file_stripped.write(strip_text(ocr_file.read()))
 		predicted_file_stripped.write(strip_text(predicted_file.read()))
@@ -192,13 +190,12 @@ def align_ground_predicted():
 
 	book_name = parameters["book_name"]
 	sub_folder_one = book_name + "_ground_truth"
-	sub_folder_two = book_name + "_post_edited/" + book_name + "/"+ spec_prefix
+	sub_folder_two = book_name + "_post_edited/" + spec_prefix
 
 	save_alignment_as = book_name + "_" + sub_folder_one.replace(book_name + "_", "") + "_with_post_edited_" + spec_prefix.replace(book_name + "_", "") + "/"
 	
 
 	save_alignment_as = "data/" + book_name + "/" + book_name + "_alignment/" + save_alignment_as
-	print("AGUBFGB: ", save_alignment_as)
 
 	file_extension = ".txt"
 
@@ -226,7 +223,6 @@ def align_ground_predicted():
 	hypothesis_prefix = "predicted_stripped_"
 
 	results_prefix = "ground_predicted_"
-
 	alignFilesBasic(parameters["start_page"], parameters["end_page"], truth_prefix, truth_path, hypothesis_prefix, hypothesis_path, save_alignment_as, alignerLocation, results_prefix)
 	calculate_stats(start_page, end_page, save_alignment_as, results_prefix)
 
