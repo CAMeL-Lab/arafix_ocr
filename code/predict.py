@@ -131,7 +131,7 @@ def decode(l):
 
 def write_decoded():
 
-	spec_prefix = parameters["book_name"] + "_model:" + parameters["model_name"].strip(".lm") + "_map:" + parameters["map_name"].strip(".map")	
+	spec_prefix = parameters["book_name"] + "_model_" + parameters["model_name"][:-3] + "_map_" + parameters["map_name"][:-4]	
 	prediction_path = "data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_post_edited/"+ spec_prefix + "/"
 	prediction_path_encoded = "data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_post_edited_encoded/"+ spec_prefix + "/"
 
@@ -165,7 +165,7 @@ def write_decoded():
 	print("Results written in: ",prediction_path)
 
 def predict():
-	spec_prefix = parameters["book_name"] + "_model:" + parameters["model_name"].strip(".lm") + "_map:" + parameters["map_name"].strip(".map")
+	spec_prefix = parameters["book_name"] + "_model_" + parameters["model_name"][:-3] + "_map_" + parameters["map_name"][:-4]		
 	prediction_path = "data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_post_edited_encoded/"+ spec_prefix + "/"
 	
 	try:
