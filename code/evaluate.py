@@ -10,6 +10,7 @@ import argparse
 import configparser
 import pyarabic.araby as araby
 import pyarabic.number as number
+import shutil
 
 
 arabic_punctuation = [c for c in camel_tools.utils.charsets.UNICODE_PUNCT_CHARSET if 1536 <= ord(c) <= 1791]
@@ -184,6 +185,9 @@ def align_ground_ocr():
 	alignFilesBasic(parameters["start_page"], parameters["end_page"], truth_prefix, truth_path, hypothesis_prefix, hypothesis_path, save_alignment_as, alignerLocation, results_prefix)
 	calculate_stats(start_page, end_page, save_alignment_as, results_prefix)
 
+	if parameters["keep_scratch"]!="True":
+		shutil.rmtree(save_alignment_as)
+
 
 def align_ground_predicted():
 
@@ -229,6 +233,8 @@ def align_ground_predicted():
 	alignFilesBasic(parameters["start_page"], parameters["end_page"], truth_prefix, truth_path, hypothesis_prefix, hypothesis_path, save_alignment_as, alignerLocation, results_prefix)
 	calculate_stats(start_page, end_page, save_alignment_as, results_prefix)
 
+	if parameters["keep_scratch"]!="True":
+		shutil.rmtree(save_alignment_as)
 
 def calculate_stats(start_page, end_page, save_alignment_as, results_prefix):
 
@@ -250,12 +256,16 @@ def calculate_stats(start_page, end_page, save_alignment_as, results_prefix):
 	temp_dict = summary_df.sum()
 	del_, ins, ok, sub = temp_dict["DEL"], temp_dict["INS"], temp_dict["OK"], temp_dict["SUB"]
 	temp_dict["WER"] = round((del_ + ins + sub) / (ok + sub + del_), 5)
-	
+	print("WER is ",temp_dict["WER"])
+	print()
 	# write to file
 	summary_df.to_csv(save_alignment_as + results_prefix + "all.csv")
 
 
 def remove_scratch():
+
+	spec_prefix = parameters["book_name"] + "_model_" + parameters["model_name"][:-3] + "_map_" + parameters["map_name"][:-4]	
+
 	if parameters["keep_scratch"]=="True":
 		return
 
@@ -298,6 +308,7 @@ calculate_bounds()
 strip_files()
 align_ground_ocr()
 align_ground_predicted()
+remove_scratch()
 
 print()
 print("---EVALUATION MODULE ENDED---\n")
