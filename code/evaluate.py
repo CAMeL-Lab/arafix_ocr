@@ -180,6 +180,7 @@ def align_ground_ocr():
 
 	results_prefix = "ground_raw_ocr_"
 
+	print("-Aligning Ground Truth with Raw OCR")
 	alignFilesBasic(parameters["start_page"], parameters["end_page"], truth_prefix, truth_path, hypothesis_prefix, hypothesis_path, save_alignment_as, alignerLocation, results_prefix)
 	calculate_stats(start_page, end_page, save_alignment_as, results_prefix)
 
@@ -223,6 +224,8 @@ def align_ground_predicted():
 	hypothesis_prefix = "predicted_stripped_"
 
 	results_prefix = "ground_predicted_"
+
+	print("-Aligning Ground Truth with Predicted")
 	alignFilesBasic(parameters["start_page"], parameters["end_page"], truth_prefix, truth_path, hypothesis_prefix, hypothesis_path, save_alignment_as, alignerLocation, results_prefix)
 	calculate_stats(start_page, end_page, save_alignment_as, results_prefix)
 
@@ -253,7 +256,14 @@ def calculate_stats(start_page, end_page, save_alignment_as, results_prefix):
 
 
 def remove_scratch():
-	pass   
+	if parameters["keep_scratch"]=="True":
+		return
+
+	for i in range(parameters["start_page"], parameters["end_page"]+1):
+		os.remove("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_ground_truth/"+"ground_truth_stripped_"+str(i)+".txt")
+		os.remove("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_raw_ocr/"+"ocr_space_output_stripped_"+str(i)+".txt")
+		os.remove("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_post_edited/"+spec_prefix+"/predicted_stripped_"+str(i)+".txt")
+
 
 
 
@@ -278,10 +288,16 @@ config.read('configs/' + config_name)
 
 parameters = dict(config.items('evaluate'))
 
+print()
+print("---EVALUATION MODULE STARTED---\n")
+
 check_parameters()
 calculate_bounds()
 
 
 strip_files()
-# align_ground_ocr()
+align_ground_ocr()
 align_ground_predicted()
+
+print()
+print("---EVALUATION MODULE ENDED---\n")

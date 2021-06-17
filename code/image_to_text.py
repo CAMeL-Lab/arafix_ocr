@@ -84,15 +84,14 @@ def convert_book():
 
 	converted_files = os.listdir(ocr_path)
 
+	print("-Converting images to text")
 	for i,file_name in enumerate(files):
 	    if not file_name.endswith(".tif"):
 	    	continue
-	    os.system("clear")
-	    print("Converting images to text")
-	    print("Page: ", i+1, " out of ",len(files))
+	    
+	    print("Page: ", i+1, " out of ",len(files), end = "\r")
 	    if parameters["skip_converted"]=="True":
 	    	if "ocr_space_output_" + get_page_num(file_name) + ".txt" in converted_files:
-	    		print("skipping")
 	    		continue
 	    page_json = ocr_space_func(filename= raw_path+file_name , language='Ara', api_key = parameters["api_key"])
 	    page_text = json.loads(page_json)["ParsedResults"][0]["ParsedText"]
@@ -100,9 +99,10 @@ def convert_book():
 	    output_file.write(page_text)
 	    output_file.close()
 
-	os.system("clear")
-	print("Image to text conversion completed!")
+	print("\n")
+	print("Results written in: ", ocr_path)
 
+	
 os.chdir("..")
 
 parser = argparse.ArgumentParser()
@@ -122,6 +122,12 @@ config.read('configs/' + config_name)
 parameters = dict(config.items('image_to_text'))
 
 
+print()
+print("---IMAGE TO TEXT MODULE STARTED---\n")
+
 check_parameters()
 
 convert_book()
+
+print()
+print("---IMAGE TO TEXT MODULE COMPLETED---\n")

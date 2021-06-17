@@ -104,12 +104,13 @@ def write_encoded():
 	except:
 		pass
 
+	# print("-Encoding raw ocr")
+	# print("Start Page: ", parameters["start_page"])
+	# print("End Page: ", parameters["end_page"])
+
 	for i in range(parameters["start_page"],parameters["end_page"]+1):
-		os.system("clear")
-		print("Encoding raw ocr for book: ", parameters["book_name"])
-		print("Start Page: ", parameters["start_page"])
-		print("End Page: ", parameters["end_page"])
-		print("Current Page: ", i)
+
+		# print("Current Page: ", i, end = "\r")
 		original_file = open("data/" + parameters["book_name"]+ "/" + parameters["book_name"] +"_raw_ocr/" + "ocr_space_output_" + str(i) + ".txt","r")
 		encoded_text = ""
 		for line in original_file:
@@ -119,6 +120,8 @@ def write_encoded():
 		encoded_file.write(encoded_text)
 		original_file.close()
 		encoded_file.close()
+
+	# print("\n")
 
 def decode(l):
 	#     l = l.replace("+", "#")
@@ -145,13 +148,13 @@ def write_decoded():
 	except:
 		pass
 
+	# print("-Decoding predicted output")
+	# print("Start Page: ", parameters["start_page"])
+	# print("End Page: ", parameters["end_page"])
 
 	for i in range(parameters["start_page"],parameters["end_page"]+1):
-		os.system("clear")
-		print("Decoding predicted output for book: ", parameters["book_name"])
-		print("Start Page: ", parameters["start_page"])
-		print("End Page: ", parameters["end_page"])
-		print("Current Page: ", i)
+
+		# print("Current Page: ", i, end = "\r")
 
 		original_file = open(prediction_path_encoded + "predicted_encoded_" + str(i) + ".txt","r")
 		decoded_text = decode(original_file.read())
@@ -160,8 +163,7 @@ def write_decoded():
 		original_file.close()
 		decoded_file.close()
 
-	os.system("clear")
-	print("Prediction complete!") 
+	# print("\n")
 	print("Results written in: ",prediction_path)
 
 def predict():
@@ -177,12 +179,13 @@ def predict():
 	except:
 		pass
 
+	print("-Predicting output")
+	print("Start Page: ", parameters["start_page"])
+	print("End Page: ", parameters["end_page"])
+
 	for i in range(parameters["start_page"],parameters["end_page"]+1):
-		os.system("clear")
-		print("Predicting output for book: ", parameters["book_name"])
-		print("Start Page: ", parameters["start_page"])
-		print("End Page: ", parameters["end_page"])
-		print("Current Page: ", i)
+
+		print("Current Page: ", i, end = "\r")
 		raw_ocr_arg = "data/" + parameters["book_name"]+ "/" + parameters["book_name"] + "_raw_ocr_encoded/" + "ocr_space_output_encoded_" + str(i) + ".txt"
 		predicted_arg = prediction_path + "predicted_encoded_" + str(i) + ".txt"
 		model_arg = "-lm models/" + parameters["model_name"] + " "
@@ -194,7 +197,7 @@ def predict():
 		p = subprocess.getstatusoutput(command)
 
 
-	os.system("clear")
+	print("\n")
 
 
 os.chdir("..")
@@ -219,14 +222,19 @@ config.read('configs/' + config_name)
 parameters = dict(config.items('predict'))
 
 
+print()
+print("---PREDICTION MODULE STARTED---\n")
+
 check_parameters()
 calculate_bounds()
 write_encoded()
 predict()
 write_decoded()
 
+
+
 if parameters["keep_scratch"] == "False":
 	os.rmdir("data/" + parameters["book_name"] +"/" + parameters["book_name"] + "_post_edited_encoded/")
 	os.rmdir("data/" + parameters["book_name"] +"/" + parameters["book_name"] + "_raw_ocr_encoded/")
-
-
+print()
+print("---PREDICTION MODULE COMPLETED---\n")
