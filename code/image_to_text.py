@@ -43,6 +43,8 @@ def ocr_space_func(filename, overlay=False, api_key='helloworld', language='eng'
     payload = {'isOverlayRequired': overlay,
                'apikey': api_key,
                'language': language,
+               "isCreateSearchablePdf": True,
+               "isSearchablePdfHideTextLayer": True
                }
     with open(filename, 'rb') as f:
         r = requests.post('https://apipro3.ocr.space/parse/image',
@@ -79,6 +81,12 @@ def convert_book():
 	except:
 		pass 
 
+	embed_path = "data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_raw_embed_pdf/"
+	try:
+		os.mkdir(embed_path)
+	except:
+		pass 
+
 	files = os.listdir(raw_path)
 	files.sort()
 
@@ -93,11 +101,23 @@ def convert_book():
 	    if parameters["skip_converted"]=="True":
 	    	if "ocr_space_output_" + get_page_num(file_name) + ".txt" in converted_files:
 	    		continue
-	    page_json = ocr_space_func(filename= raw_path+file_name , language='Ara', api_key = parameters["api_key"])
+
+	    page_json = ocr_space_func(filename= raw_path+file_name, language='Ara', api_key = parameters["api_key"])
+	    page_url = json.loads(page_json)["SearchablePDFURL"]
 	    page_text = json.loads(page_json)["ParsedResults"][0]["ParsedText"]
 	    output_file = open(ocr_path  + "ocr_space_output_" + get_page_num(file_name) + ".txt", "w", encoding = "utf8")
 	    output_file.write(page_text)
 	    output_file.close()
+	    
+	    
+	    r = requests.get(page_url, allow_redirects=True)
+	    open(embed_path + "ocr_space_output_embed_pdf" + get_page_num(file_name) + ".pdf", 'wb').write(r.content)
+
+	    # page_json = ocr_space_func(filename= raw_path+file_name , language='Ara', api_key = parameters["api_key"])
+	    # page_text = json.loads(page_json)["ParsedResults"][0]["ParsedText"]
+	    # output_file = open(ocr_path  + "ocr_space_output_" + get_page_num(file_name) + ".txt", "w", encoding = "utf8")
+	    # output_file.write(page_text)
+	    # output_file.close()
 
 	print("\n")
 	print("Results written in: ", ocr_path)
