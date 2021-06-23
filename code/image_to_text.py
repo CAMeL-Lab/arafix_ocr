@@ -16,6 +16,16 @@ import configparser
 def check_parameters():
 
 	parameters["book_name"] = args.bookname
+	parameters["start_page"] = args.startpage
+	parameters["end_page"] = args.endpage
+
+
+	if parameters["start_page"]=="None":
+		parameters["start_page"] = None
+
+	if parameters["end_page"]=="None":
+		parameters["end_page"] = None
+
 	incorrect = False
 
 	books = os.listdir("data")
@@ -23,7 +33,36 @@ def check_parameters():
 		print("Book does not exist!")
 		incorrect = True
 
+	if parameters["start_page"]!=None:
+		if not parameters["start_page"].isdigit():
+			print("Start page must be a positive number!")
+			incorrect = True
+		else:
+			parameters["start_page"] = int(parameters["start_page"])
+	
+
+	if parameters["end_page"]!=None:
+		if not parameters["end_page"].isdigit():
+			print("End page must be positive a number!")
+			incorrect = True
+		else:
+			parameters["end_page"] = int(parameters["end_page"])
+
 	if incorrect:
+		exit(0)
+
+def calculate_bounds():
+	files = os.listdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_raw_ocr/")
+	files.sort()
+	files = files[1:]
+
+	if parameters["start_page"]==None:
+		parameters["start_page"] = int(files[0].split("_")[-1].strip(".txt"))
+	if parameters["end_page"]==None:
+		parameters["end_page"] = int(files[-1].split("_")[-1].strip(".txt"))
+
+	if parameters["start_page"]>parameters["end_page"]:
+		print("Start page cannot be greater than end page")
 		exit(0)
 
 def ocr_space_func(filename, overlay=False, api_key='helloworld', language='eng'):
@@ -93,31 +132,44 @@ def convert_book():
 	converted_files = os.listdir(ocr_path)
 
 	print("-Converting images to text")
+	print("Start Page: ", parameters["start_page"])
+	print("End Page: ", parameters["end_page"])
+
 	for i,file_name in enumerate(files):
-	    if not file_name.endswith(".tif"):
-	    	continue
-	    
-	    print("Page: ", i+1, " out of ",len(files), end = "\r")
-	    if parameters["skip_converted"]=="True":
-	    	if "ocr_space_output_" + get_page_num(file_name) + ".txt" in converted_files:
-	    		continue
+		if not file_name.endswith(".tif"):
+			continue
 
-	    page_json = ocr_space_func(filename= raw_path+file_name, language='Ara', api_key = parameters["api_key"])
-	    page_url = json.loads(page_json)["SearchablePDFURL"]
-	    page_text = json.loads(page_json)["ParsedResults"][0]["ParsedText"]
-	    output_file = open(ocr_path  + "ocr_space_output_" + get_page_num(file_name) + ".txt", "w", encoding = "utf8")
-	    output_file.write(page_text)
-	    output_file.close()
-	    
-	    
-	    r = requests.get(page_url, allow_redirects=True)
-	    open(embed_path + "ocr_space_output_embed_pdf" + get_page_num(file_name) + ".pdf", 'wb').write(r.content)
+		cur_page = int(get_page_num(file_name))
+		if cur_page<parameters["start_page"]:
+			continue
+		if cur_page>parameters["end_page"]:
+			print("\n")
+			print("Results written in: ", ocr_path)
+			return
 
-	    # page_json = ocr_space_func(filename= raw_path+file_name , language='Ara', api_key = parameters["api_key"])
-	    # page_text = json.loads(page_json)["ParsedResults"][0]["ParsedText"]
-	    # output_file = open(ocr_path  + "ocr_space_output_" + get_page_num(file_name) + ".txt", "w", encoding = "utf8")
-	    # output_file.write(page_text)
-	    # output_file.close()
+		print("Current Page: ", cur_page, end = "\r")
+
+		if parameters["skip_converted"]=="True":
+			if "ocr_space_output_" + get_page_num(file_name) + ".txt" in converted_files:
+				continue
+
+		page_json = ocr_space_func(filename= raw_path+file_name, language='Ara', api_key = parameters["api_key"])
+		print(page_json)
+		page_url = json.loads(page_json)["SearchablePDFURL"]
+		page_text = json.loads(page_json)["ParsedResults"][0]["ParsedText"]
+		output_file = open(ocr_path  + "ocr_space_output_" + get_page_num(file_name) + ".txt", "w", encoding = "utf8")
+		output_file.write(page_text)
+		output_file.close()
+
+
+		r = requests.get(page_url, allow_redirects=True)
+		open(embed_path + "ocr_space_output_embed_pdf" + get_page_num(file_name) + ".pdf", 'wb').write(r.content)
+
+		# page_json = ocr_space_func(filename= raw_path+file_name , language='Ara', api_key = parameters["api_key"])
+		# page_text = json.loads(page_json)["ParsedResults"][0]["ParsedText"]
+		# output_file = open(ocr_path  + "ocr_space_output_" + get_page_num(file_name) + ".txt", "w", encoding = "utf8")
+		# output_file.write(page_text)
+		# output_file.close()
 
 	print("\n")
 	print("Results written in: ", ocr_path)
@@ -128,6 +180,10 @@ os.chdir("..")
 parser = argparse.ArgumentParser()
 parser.add_argument("-config", "--config", help="Name of config file")
 parser.add_argument("-bookname", "--bookname", help="Name of book to ocr on")
+parser.add_argument("-startpage", "--startpage", help="Starting page for prediction of selected book", default=None)
+parser.add_argument("-endpage", "--endpage", help="Ending page for prediction of selected book", default = None)
+
+
 args = parser.parse_args()
 config_name = args.config
 
@@ -146,6 +202,8 @@ print()
 print("---IMAGE TO TEXT MODULE STARTED---\n")
 
 check_parameters()
+
+calculate_bounds()
 
 convert_book()
 
