@@ -4,6 +4,7 @@ import configparser
 import pyarabic.araby as araby
 import pyarabic.number as number
 import argparse
+import shutil
 
 # arabic letters range
 begin = int("0600", 16)
@@ -234,7 +235,7 @@ write_decoded()
 
 
 if parameters["keep_scratch"] == "False":
-	os.rmdir("data/" + parameters["book_name"] +"/" + parameters["book_name"] + "_post_edited_encoded/")
-	os.rmdir("data/" + parameters["book_name"] +"/" + parameters["book_name"] + "_raw_ocr_encoded/")
+	shutil.rmtree("data/" + parameters["book_name"] +"/" + parameters["book_name"] + "_post_edited_encoded/")
+	shutil.rmtree("data/" + parameters["book_name"] +"/" + parameters["book_name"] + "_raw_ocr_encoded/")
 print()
 print("---PREDICTION MODULE COMPLETED---\n")

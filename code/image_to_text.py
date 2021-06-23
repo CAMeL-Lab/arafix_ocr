@@ -65,7 +65,7 @@ def calculate_bounds():
 		print("Start page cannot be greater than end page")
 		exit(0)
 
-def ocr_space_func(filename, overlay=False, api_key='helloworld', language='eng'):
+def ocr_space_func(filename, create_pdf, overlay=False, api_key='helloworld', language='eng'):
     """ OCR.space API request with local file.
         Python3.5 - not tested on 2.7
     :param filename: Your file path & name.
@@ -78,12 +78,16 @@ def ocr_space_func(filename, overlay=False, api_key='helloworld', language='eng'
                     Defaults to 'en'.
     :return: Result in JSON format.
     """
+    if create_pdf=="True":
+    	create_pdf = True
+    else:
+    	create_pdf = False
 
     payload = {'isOverlayRequired': overlay,
                'apikey': api_key,
                'language': language,
-               "isCreateSearchablePdf": True,
-               "isSearchablePdfHideTextLayer": True
+               "isCreateSearchablePdf": create_pdf,
+               "isSearchablePdfHideTextLayer": create_pdf
                }
     with open(filename, 'rb') as f:
         r = requests.post('https://apipro3.ocr.space/parse/image',
@@ -153,17 +157,17 @@ def convert_book():
 			if "ocr_space_output_" + get_page_num(file_name) + ".txt" in converted_files:
 				continue
 
-		page_json = ocr_space_func(filename= raw_path+file_name, language='Ara', api_key = parameters["api_key"])
-		print(page_json)
-		page_url = json.loads(page_json)["SearchablePDFURL"]
+		page_json = ocr_space_func(filename= raw_path+file_name, language='Ara', api_key = parameters["api_key"], create_pdf = parameters["create_pdf"])
+		
 		page_text = json.loads(page_json)["ParsedResults"][0]["ParsedText"]
 		output_file = open(ocr_path  + "ocr_space_output_" + get_page_num(file_name) + ".txt", "w", encoding = "utf8")
 		output_file.write(page_text)
 		output_file.close()
 
-
-		r = requests.get(page_url, allow_redirects=True)
-		open(embed_path + "ocr_space_output_embed_pdf" + get_page_num(file_name) + ".pdf", 'wb').write(r.content)
+		if parameters["create_pdf"] == "True":
+			page_url = json.loads(page_json)["SearchablePDFURL"]
+			r = requests.get(page_url, allow_redirects=True)
+			open(embed_path + "ocr_space_output_embed_pdf" + get_page_num(file_name) + ".pdf", 'wb').write(r.content)
 
 		# page_json = ocr_space_func(filename= raw_path+file_name , language='Ara', api_key = parameters["api_key"])
 		# page_text = json.loads(page_json)["ParsedResults"][0]["ParsedText"]
