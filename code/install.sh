@@ -13,7 +13,7 @@ fi
 if [! -d srilm ]
 then
 	echo "install srilm"
-	mkdir srilm
+	mkdir srilm-1.7.3
 	cd ..
 	mv srilm-1.7.3.tar.gz code/srilm/
 	cd code/srilm

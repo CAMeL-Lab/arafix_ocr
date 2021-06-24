@@ -194,9 +194,8 @@ def predict():
 		order_arg = "-order " + parameters["order"] + " "
 		text_files = "-text " + raw_ocr_arg + ">" + predicted_arg
 
-		command = "/Users/aizazansari/Downloads/srilm-1.7.3/bin/macosx/disambig " + model_arg + "-keep-unk " + order_arg + map_arg + text_files
+		command = "code/srilm-1.7.3/bin/macosx/disambig " + model_arg + "-keep-unk " + order_arg + map_arg + text_files
 		p = subprocess.getstatusoutput(command)
-
 
 	print("\n")
 
