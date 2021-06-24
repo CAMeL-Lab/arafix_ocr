@@ -1,0 +1,8 @@
+configparser
+argparse
+pandas 
+camel_tools
+pyarabic
+ocrspace
+requests
+PyPDF2 

@@ -1,3 +1,13 @@
+# Installing brew, git and python
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install git
+brew install python
+
+#Installing required python packages
+
+pip install -r code/utils/dependencies.txt
+
+
 #installing ced_word_alignment
 
 if [ ! -d ced_word_alignment ]
@@ -24,7 +34,7 @@ then
 	sed -i '.backup' "s/# SRILM = \/home\/speech\/stolcke\/project\/srilm\/devel/SRILM = $srilm_dir/g" Makefile
 	rm Makefile.backup
 
-	mv ../utils/Makefile.machine.macosx Makefile.machine.macosx
+	cp ../utils/Makefile.machine.macosx common/Makefile.machine.macosx
 
 	make World 
 
