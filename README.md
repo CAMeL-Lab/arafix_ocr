@@ -5,15 +5,30 @@
 - Download srilm: Navigate to this [link](http://www.speech.sri.com/projects/srilm/download.html) and download version of 1.7.3 of srilm
 - Move srilm: Move srilm to the main directory of this repository
 - Run the following commands:
+
   ```cd code```
   
   ```sh install.sh```
-  This command will install all the required dependencies for arafix. The tool should be ready to use!
+  
+  The previous command will install all the required dependencies for arafix. The tool should be ready to use!
   
   
 ## File Organization
 
 ## Usage
+
+To run arafix, do the following:
+1) Open code/arafix.sh in a text editor
+2) Modify variables as needed
+3) Open terminal and navigate to arafix_ocr
+4) ```cd code```
+5) ```sh arafix.sh```
+
+arafix.sh variables:
+- config_name: which config file should arafix read the settings from
+- book_name: which book should arafix run on
+- start_page: which page should arafix start running from 
+- end_page: which page should arafix run till (inclusive)
 
 
 ### [Optional] Configuration
