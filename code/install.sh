@@ -10,13 +10,13 @@ else
 	echo "ced_word_alignment already installed!"
 fi
 
-if [! -d srilm ]
+if [ ! -d srilm ]
 then
 	echo "install srilm"
 	mkdir srilm-1.7.3
 	cd ..
-	mv srilm-1.7.3.tar.gz code/srilm/
-	cd code/srilm
+	mv srilm-1.7.3.tar.gz code/srilm-1.7.3/
+	cd code/srilm-1.7.3
 	tar xvf srilm-1.7.3.tar.gz
 	srilm_dir=$(pwd)
 	srilm_dir=${srilm_dir//\//\\/}
