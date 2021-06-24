@@ -19,8 +19,9 @@ then
 	cd code/srilm
 	tar xvf srilm-1.7.3.tar.gz
 	srilm_dir=$(pwd)
+	srilm_dir=${srilm_dir//\//\\/}
 
-	sed -i '.backup' "s/# SRILM = \/home\/speech\/stolcke\/project\/srilm\/devel/$srilm_dir/g" Makefile
+	sed -i '.backup' "s/# SRILM = \/home\/speech\/stolcke\/project\/srilm\/devel/SRILM = $srilm_dir/g" Makefile
 	rm Makefile.backup
 
 	mv ../utils/Makefile.machine.macosx Makefile.machine.macosx
