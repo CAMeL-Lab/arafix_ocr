@@ -64,7 +64,7 @@
 ┃ ┣ 📂princeton_aco001005_hi_raw_ocr
 ┃ ┃ ┣ 📜ocr_space_output_1.txt
 ┃ ┃ ┣ 📜ocr_space_output_2.txt
-┗ ┗ ┗ 📜ocr_space_output_3.txt
+┃ ┃ ┗ 📜ocr_space_output_3.txt
 ```
 
 ## Usage
