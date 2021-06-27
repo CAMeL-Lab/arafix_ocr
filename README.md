@@ -14,7 +14,7 @@
   
   
 ## File Organization
-
+```
 📦code
  ┣ 📂ced_word_alignment
  ┣ 📂srilm-1.7.3
@@ -65,7 +65,7 @@
 ┃ ┃ ┣ 📜ocr_space_output_1.txt
 ┃ ┃ ┣ 📜ocr_space_output_2.txt
 ┃ ┃ ┗ 📜ocr_space_output_3.txt
-
+```
 
 ## Usage
 
