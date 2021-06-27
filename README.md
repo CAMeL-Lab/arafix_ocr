@@ -15,6 +15,58 @@
   
 ## File Organization
 
+📦code
+ ┣ 📂ced_word_alignment
+ ┣ 📂srilm-1.7.3
+ ┣ 📂utils
+ ┃ ┣ 📜Makefile.machine.macosx
+ ┃ ┗ 📜dependencies.txt
+ ┣ 📜align_text.py
+ ┣ 📜alignment.py
+ ┣ 📜arafix.sh
+ ┣ 📜evaluate.py
+ ┣ 📜image_to_text.py
+ ┣ 📜install.sh
+ ┗ 📜predict.py
+
+📦configs
+ ┗ 📜default.txt
+ 
+📦mappings
+ ┣ 📂empirical
+ ┃ ┣ 📜emp_space_perc_f5_pg_1_top_10.map
+ ┃ ┗ 📜emp_space_perc_f5_pg_1_top_5.map
+ ┣ 📂visual
+ ┃ ┣ 📜visual_type_1_prob_40top_6.map
+ ┃ ┗ 📜visual_type_1_prob_40top_7.map
+ ┗ 📜segmenter.map
+ 
+📦models
+ ┗ 📜m2.lm
+ 
+📦data
+┗ 📂princeton_aco001005_hi
+┃ ┣ 📂princeton_aco001005_hi_alignment
+┃ ┣ 📂princeton_aco001005_hi_ground_truth
+┃ ┃ ┣ 📜ground_truth_1.txt
+┃ ┃ ┣ 📜ground_truth_2.txt
+┃ ┃ ┗ 📜ground_truth_3.txt
+┃ ┣ 📂princeton_aco001005_hi_post_edited
+┃ ┃ ┣ 📂princeton_aco001005_hi_model_m2_map_segmenter
+┃ ┃ ┃ ┣ 📜predicted_1.txt
+┃ ┃ ┃ ┣ 📜predicted_2.txt
+┃ ┃ ┃ ┗ 📜predicted_3.txt
+┃ ┣ 📂princeton_aco001005_hi_raw_embed_pdf
+┃ ┣ 📂princeton_aco001005_hi_raw_images
+┃ ┃ ┣ 📜princeton_aco001005_n000001_d.tif
+┃ ┃ ┣ 📜princeton_aco001005_n000002_d.tif
+┃ ┃ ┗ 📜princeton_aco001005_n000003_d.tif
+┃ ┣ 📂princeton_aco001005_hi_raw_ocr
+┃ ┃ ┣ 📜ocr_space_output_1.txt
+┃ ┃ ┣ 📜ocr_space_output_2.txt
+┃ ┃ ┗ 📜ocr_space_output_3.txt
+
+
 ## Usage
 
 To run arafix, do the following:
