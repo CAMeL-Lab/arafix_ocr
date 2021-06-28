@@ -15,24 +15,24 @@
   
 ## File Organization
 ```
-📦code
- ┣ 📂ced_word_alignment
- ┣ 📂srilm-1.7.3
- ┣ 📂utils
- ┃ ┣ 📜Makefile.machine.macosx
- ┃ ┗ 📜dependencies.txt
+📦code / main directory for all code files
+ ┣ 📂ced_word_alignment / repo for word aligment from CAMeL lab
+ ┣ 📂srilm-1.7.3 / repo for prediction module
+ ┣ 📂utils / folder for all code utils
+ ┃ ┣ 📜Makefile.machine.macosx / file needed for srilm setup
+ ┃ ┗ 📜dependencies.txt / list of python packages needed for arafix
  ┣ 📜align_text.py
  ┣ 📜alignment.py
- ┣ 📜arafix.sh
- ┣ 📜evaluate.py
- ┣ 📜image_to_text.py
- ┣ 📜install.sh
- ┗ 📜predict.py
+ ┣ 📜arafix.sh / script to run arafix
+ ┣ 📜evaluate.py / arafix module
+ ┣ 📜image_to_text.py / arafix module
+ ┣ 📜install.sh / script to setup and install all dependencies
+ ┗ 📜predict.py / arafix module
 
-📦configs
+📦configs / folder for all configurations
  ┗ 📜default.txt
  
-📦mappings
+📦mappings / folder for all mappings
  ┣ 📂empirical
  ┃ ┣ 📜emp_space_perc_f5_pg_1_top_10.map
  ┃ ┗ 📜emp_space_perc_f5_pg_1_top_5.map
@@ -41,17 +41,17 @@
  ┃ ┗ 📜visual_type_1_prob_40top_7.map
  ┗ 📜segmenter.map
  
-📦models
+📦models / folder for all models
  ┗ 📜m2.lm
  
-📦data
-┗ 📂princeton_aco001005_hi
-┃ ┣ 📂princeton_aco001005_hi_alignment
-┃ ┣ 📂princeton_aco001005_hi_ground_truth
+📦data / folder for all books
+┗ 📂princeton_aco001005_hi / folder of one particular book (book name: princeton_aco001005_hi)
+┃ ┣ 📂princeton_aco001005_hi_alignment / scratch folder for alignment
+┃ ┣ 📂princeton_aco001005_hi_ground_truth / folder to store ground truth if you are performing evaluation
 ┃ ┃ ┣ 📜ground_truth_1.txt
 ┃ ┃ ┣ 📜ground_truth_2.txt
 ┃ ┃ ┗ 📜ground_truth_3.txt
-┃ ┣ 📂princeton_aco001005_hi_post_edited
+┃ ┣ 📂princeton_aco001005_hi_post_edited / folder to store post edited text
 ┃ ┃ ┣ 📂princeton_aco001005_hi_model_m2_map_segmenter
 ┃ ┃ ┃ ┣ 📜predicted_1.txt
 ┃ ┃ ┃ ┣ 📜predicted_2.txt
