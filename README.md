@@ -15,24 +15,24 @@
   
 ## File Organization
 ```
-📦code / main directory for all code files
- ┣ 📂ced_word_alignment / repo for word aligment from CAMeL lab
- ┣ 📂srilm-1.7.3 / repo for prediction module
- ┣ 📂utils / folder for all code utils
- ┃ ┣ 📜Makefile.machine.macosx / file needed for srilm setup
- ┃ ┗ 📜dependencies.txt / list of python packages needed for arafix
+📦code 
+ ┣ 📂ced_word_alignment /
+ ┣ 📂srilm-1.7.3 
+ ┣ 📂utils 
+ ┃ ┣ 📜Makefile.machine.macosx 
+ ┃ ┗ 📜dependencies.txt
  ┣ 📜align_text.py
  ┣ 📜alignment.py
- ┣ 📜arafix.sh / script to run arafix
- ┣ 📜evaluate.py / arafix module
- ┣ 📜image_to_text.py / arafix module
- ┣ 📜install.sh / script to setup and install all dependencies
- ┗ 📜predict.py / arafix module
+ ┣ 📜arafix.sh 
+ ┣ 📜evaluate.py 
+ ┣ 📜image_to_text.py 
+ ┣ 📜install.sh 
+ ┗ 📜predict.py 
 
-📦configs / folder for all configurations
+📦configs 
  ┗ 📜default.txt
  
-📦mappings / folder for all mappings
+📦mappings 
  ┣ 📂empirical
  ┃ ┣ 📜emp_space_perc_f5_pg_1_top_10.map
  ┃ ┗ 📜emp_space_perc_f5_pg_1_top_5.map
@@ -41,17 +41,17 @@
  ┃ ┗ 📜visual_type_1_prob_40top_7.map
  ┗ 📜segmenter.map
  
-📦models / folder for all models
+📦models 
  ┗ 📜m2.lm
  
-📦data / folder for all books
-┗ 📂princeton_aco001005_hi / folder of one particular book (book name: princeton_aco001005_hi)
-┃ ┣ 📂princeton_aco001005_hi_alignment / scratch folder for alignment
-┃ ┣ 📂princeton_aco001005_hi_ground_truth / folder to store ground truth if you are performing evaluation
+📦data 
+┗ 📂princeton_aco001005_hi
+┃ ┣ 📂princeton_aco001005_hi_alignment 
+┃ ┣ 📂princeton_aco001005_hi_ground_truth 
 ┃ ┃ ┣ 📜ground_truth_1.txt
 ┃ ┃ ┣ 📜ground_truth_2.txt
 ┃ ┃ ┗ 📜ground_truth_3.txt
-┃ ┣ 📂princeton_aco001005_hi_post_edited / folder to store post edited text
+┃ ┣ 📂princeton_aco001005_hi_post_edited
 ┃ ┃ ┣ 📂princeton_aco001005_hi_model_m2_map_segmenter
 ┃ ┃ ┃ ┣ 📜predicted_1.txt
 ┃ ┃ ┃ ┣ 📜predicted_2.txt
@@ -70,11 +70,15 @@
 ## Usage
 
 To run arafix, do the following:
-1) Open code/arafix.sh in a text editor
-2) Modify variables* as needed
-3) Open terminal and navigate to arafix_ocr
-4) ```cd code```
-5) ```sh arafix.sh```
+1) Open the data folder and create a subfolder with the name of the book you intend to run arafix on
+2) Within the book's subfolder, create a subfolder named <book_name>_raw_ocr
+3) Within the <book_name>_raw_ocr subfolder, add all the pages of the respective book as .tif files
+4) Optionally, if you intend to perform evaluation of your result (only if you have ground truth), create another subfolder within the <book_name> folder called <book_name>_ground_truth. This folder should contain the ground truth text files for your book (one file for every page). 
+5) Open code/arafix.sh in a text editor
+6) Modify variables* as needed
+7) Open terminal and navigate to arafix_ocr
+8) ```cd code```
+9) ```sh arafix.sh```
 
 *arafix.sh variables:
 - config_name: which config file should arafix read the settings from
