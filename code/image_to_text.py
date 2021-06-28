@@ -160,9 +160,8 @@ def convert_book():
 		file_name_pdf = file_name.strip(".tif")+".pdf"
 		with open(raw_path+file_name_pdf,"wb") as f:
 			f.write(img2pdf.convert(raw_path+file_name))
-		print("bef")
-		page_json = ocr_space_func(filename= raw_path+file_name, language='Ara', api_key = parameters["api_key"], create_pdf = parameters["create_pdf"])
-		print("aft")
+
+		page_json = ocr_space_func(filename= raw_path+file_name_pdf, language='Ara', api_key = parameters["api_key"], create_pdf = parameters["create_pdf"])
 		page_text = json.loads(page_json)["ParsedResults"][0]["ParsedText"]
 		output_file = open(ocr_path  + "ocr_space_output_" + get_page_num(file_name) + ".txt", "w", encoding = "utf8")
 		output_file.write(page_text)
@@ -173,11 +172,6 @@ def convert_book():
 			r = requests.get(page_url, allow_redirects=True)
 			open(embed_path + "ocr_space_output_embed_pdf" + get_page_num(file_name) + ".pdf", 'wb').write(r.content)
 
-		# page_json = ocr_space_func(filename= raw_path+file_name , language='Ara', api_key = parameters["api_key"])
-		# page_text = json.loads(page_json)["ParsedResults"][0]["ParsedText"]
-		# output_file = open(ocr_path  + "ocr_space_output_" + get_page_num(file_name) + ".txt", "w", encoding = "utf8")
-		# output_file.write(page_text)
-		# output_file.close()
 
 	print("\n")
 	print("Results written in: ", ocr_path)
