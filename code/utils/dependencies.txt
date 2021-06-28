@@ -5,4 +5,5 @@ camel_tools
 pyarabic
 ocrspace
 requests
-PyPDF2 
+PyPDF2
+img2pdf 

@@ -11,7 +11,7 @@ from PyPDF2 import PdfFileWriter, PdfFileReader
 import json
 import argparse
 import configparser
-
+import img2pdf
 
 def check_parameters():
 
@@ -157,8 +157,12 @@ def convert_book():
 			if "ocr_space_output_" + get_page_num(file_name) + ".txt" in converted_files:
 				continue
 
+		file_name_pdf = file_name.strip(".tif")+".pdf"
+		with open(raw_path+file_name_pdf,"wb") as f:
+			f.write(img2pdf.convert(raw_path+file_name))
+		print("bef")
 		page_json = ocr_space_func(filename= raw_path+file_name, language='Ara', api_key = parameters["api_key"], create_pdf = parameters["create_pdf"])
-		
+		print("aft")
 		page_text = json.loads(page_json)["ParsedResults"][0]["ParsedText"]
 		output_file = open(ocr_path  + "ocr_space_output_" + get_page_num(file_name) + ".txt", "w", encoding = "utf8")
 		output_file.write(page_text)

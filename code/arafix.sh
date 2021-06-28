@@ -15,15 +15,15 @@ python image_to_text.py \
 -endpage "${end_page}" 
 
 
-python predict.py \
--config "${config_name}" \
--bookname "${book_name}" \
--startpage "${start_page}" \
--endpage "${end_page}" 
+# python predict.py \
+# -config "${config_name}" \
+# -bookname "${book_name}" \
+# -startpage "${start_page}" \
+# -endpage "${end_page}" 
 
-python evaluate.py \
--config "${config_name}" \
--bookname "${book_name}" \
--startpage "${start_page}" \
--endpage "${end_page}" 
+# python evaluate.py \
+# -config "${config_name}" \
+# -bookname "${book_name}" \
+# -startpage "${start_page}" \
+# -endpage "${end_page}" 
 
