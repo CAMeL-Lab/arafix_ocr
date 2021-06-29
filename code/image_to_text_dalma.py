@@ -52,14 +52,14 @@ def check_parameters():
 		exit(0)
 
 def calculate_bounds():
-	files = os.listdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_raw_ocr/")
+	files = os.listdir("../aco_books/" + parameters["book_name"] + "/" + parameters["book_name"] + "_raw_images/")
 	files.sort()
 	files = files[1:]
 
 	if parameters["start_page"]==None:
-		parameters["start_page"] = int(files[0].split("_")[-1].strip(".txt"))
+		parameters["start_page"] = int(get_page_num(files[0]))
 	if parameters["end_page"]==None:
-		parameters["end_page"] = int(files[-1].split("_")[-1].strip(".txt"))
+		parameters["end_page"] = int(get_page_num(files[-1]))
 
 	if parameters["start_page"]>parameters["end_page"]:
 		print("Start page cannot be greater than end page")
