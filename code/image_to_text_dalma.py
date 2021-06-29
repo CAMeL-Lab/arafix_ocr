@@ -112,7 +112,7 @@ def get_page_num(filename):
 
 def convert_book():
 	
-	raw_path = "data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_raw_images/"
+	raw_path = "../aco_books/" + parameters["book_name"] + "/" + parameters["book_name"] + "_raw_images/"
 	try:
 		os.mkdir(raw_path)
 	except:
