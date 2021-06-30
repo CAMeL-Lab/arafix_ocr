@@ -1,4 +1,5 @@
 *.lm
 .DS_Store
+*.tif
 code/ced_word_alignment
 code/srilm-1.7.3
