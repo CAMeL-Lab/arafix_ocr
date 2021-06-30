@@ -54,9 +54,16 @@ def check_parameters():
 
 def calculate_bounds():
 	files = os.listdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_raw_images/")
-	files.sort()
-	files = files[1:]
+	
+	filtered_files = []
 
+	for file in files:
+		if file.endswith(".tif"):
+			filtered_files.append(file)
+
+	files = filtered_files
+	files.sort()
+	
 	if parameters["start_page"]==None:
 		parameters["start_page"] = int(get_page_num(files[0]))
 	if parameters["end_page"]==None:
@@ -88,7 +95,8 @@ def ocr_space_func(filename, create_pdf, overlay=False, api_key='helloworld', la
                'apikey': api_key,
                'language': language,
                "isCreateSearchablePdf": create_pdf,
-               "isSearchablePdfHideTextLayer": create_pdf
+               "isSearchablePdfHideTextLayer": create_pdf,
+               "isTable":True
                }
     with open(filename, 'rb') as f:
         r = requests.post('https://apipro3.ocr.space/parse/image',
@@ -131,6 +139,12 @@ def convert_book():
 	except:
 		pass 
 
+	raw_json_path = "data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_raw_json/"
+	try:
+		os.mkdir(raw_json_path)
+	except:
+		pass
+
 	files = os.listdir(raw_path)
 	files.sort()
 
@@ -167,6 +181,10 @@ def convert_book():
 		output_file = open(ocr_path  + "ocr_space_output_" + get_page_num(file_name) + ".txt", "w", encoding = "utf8")
 		output_file.write(page_text)
 		output_file.close()
+
+		output_json = open(raw_json_path + "raw_json_" + get_page_num(file_name) + ".txt", "w", encoding = "utf8")
+		output_json.write(page_json)
+		output_json.close()
 
 		if parameters["create_pdf"] == "True":
 			page_url = json.loads(page_json)["SearchablePDFURL"]
