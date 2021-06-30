@@ -83,8 +83,8 @@ To run arafix, do the following:
 *arafix.sh variables:
 - config_name: which config file should arafix read the settings from
 - book_name: which book should arafix run on
-- start_page: which page should arafix start running from 
-- end_page: which page should arafix run till (inclusive)
+- start_page: which page should arafix start running from. Set it to "None" to run it from the lowest possible page.
+- end_page: which page should arafix run till (inclusive). Set it to "None" to run till the highest possible page.
 
 
 ### [Optional] Configuration
