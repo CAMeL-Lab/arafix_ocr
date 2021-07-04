@@ -162,7 +162,8 @@ def convert_book():
 		# 	f.write(img2pdf.convert(raw_path+file_name))
 
 		page_json = ocr_space_func(filename= raw_path+file_name, language='Ara', api_key = parameters["api_key"], create_pdf = parameters["create_pdf"])
-		page_text = json.loads(page_json)["ParsedResults"][0]["ParsedText"]
+		page_text = " \n".join([ " ".join(t.split("\t")[::-1]) for t in json.loads(page_json)["ParsedResults"][0]["ParsedText"].split("\r\n") ])
+
 		output_file = open(ocr_path  + "ocr_space_output_" + get_page_num(file_name) + ".txt", "w", encoding = "utf8")
 		output_file.write(page_text)
 		output_file.close()
