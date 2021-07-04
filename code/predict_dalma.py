@@ -62,13 +62,17 @@ def check_parameters():
 
 def calculate_bounds():
 	files = os.listdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_raw_ocr/")
-	files.sort()
-	files = files[1:]
+	new_files = []
+	for file in files:
+		if file.endswith(".txt"):
+			new_files.append(int(file.split("_")[-1].strip(".txt")))
+	new_files.sort()
+	files = new_files
 
 	if parameters["start_page"]==None:
-		parameters["start_page"] = int(files[0].split("_")[-1].strip(".txt"))
+		parameters["start_page"] = files[0]
 	if parameters["end_page"]==None:
-		parameters["end_page"] = int(files[-1].split("_")[-1].strip(".txt"))
+		parameters["end_page"] = files[-1]
 
 	if parameters["start_page"]>parameters["end_page"]:
 		print("Start page cannot be greater than end page")

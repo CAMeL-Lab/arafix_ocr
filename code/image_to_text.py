@@ -59,15 +59,15 @@ def calculate_bounds():
 
 	for file in files:
 		if file.endswith(".tif"):
-			filtered_files.append(file)
+			filtered_files.append(int(get_page_num(file)))
 
 	files = filtered_files
 	files.sort()
 	
 	if parameters["start_page"]==None:
-		parameters["start_page"] = int(get_page_num(files[0]))
+		parameters["start_page"] = files[0]
 	if parameters["end_page"]==None:
-		parameters["end_page"] = int(get_page_num(files[-1]))
+		parameters["end_page"] = files[-1]
 
 	if parameters["start_page"]>parameters["end_page"]:
 		print("Start page cannot be greater than end page")
