@@ -12,8 +12,8 @@ source activate srilm_env
 
 config_name="default.txt"
 book_name="columbia_aco000484"
-start_page=""
-end_page=""
+start_page="None"
+end_page="None"
 
 echo ""
 
