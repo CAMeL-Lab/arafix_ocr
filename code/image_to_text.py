@@ -155,7 +155,7 @@ def convert_book():
 	print("End Page: ", parameters["end_page"])
 
 	for i,file_name in enumerate(files):
-		if not file_name.endswith(".tif") or not file.split("_")[2].startswith("n"):
+		if not file_name.endswith(".tif") or not file_name.split("_")[2].startswith("n"):
 			continue
 
 		cur_page = int(get_page_num(file_name))
