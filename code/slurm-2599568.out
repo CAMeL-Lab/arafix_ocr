@@ -1,0 +1,6 @@
+Loading module 'anaconda/2-4.1.1'
+Loading module 'gcc/4.9.3'
+Loading module 'srilm/1.6.0'
+
+~~~RUNNING ARAFIX FOR BOOK: columbia_aco000484~~~
+slurmstepd: *** JOB 2599568 ON compute-8-1 CANCELLED AT 2021-07-05T01:09:25 ***
