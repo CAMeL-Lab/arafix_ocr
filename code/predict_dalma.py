@@ -51,10 +51,23 @@ def check_parameters():
 		print("Model does not exist!")
 		incorrect = True
 
-	mappings = os.listdir("mappings")
-	if parameters["map_name"] not in mappings:
-		print("Mapping does not exist!")
-		incorrect = True
+	if parameters["map_name"].startswith("empirical"):
+		mappings = os.listdir("mappings/empirical")
+		if parameters["map_name"].strip("empirical/") not in mappings:
+			print("Mapping does not exist!")
+			incorrect = True
+
+	else if parameters["map_name"].startswith("visual"):
+		mappings = os.listdir("mappings")
+		if parameters["map_name"].strip("visual/") not in mappings:
+			print("Mapping does not exist!")
+			incorrect = True
+
+	else:
+		mappings = os.listdir("mappings")
+		if parameters["map_name"] not in mappings:
+			print("Mapping does not exist!")
+			incorrect = True
 
 	if incorrect:
 		exit(0)
