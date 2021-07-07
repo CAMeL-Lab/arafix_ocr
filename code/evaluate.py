@@ -51,28 +51,23 @@ def check_parameters():
 			parameters["end_page"] = int(parameters["end_page"])
 
 
-	models = os.listdir("models")
-	if parameters["model_name"] not in models:
-		print("Model does not exist!")
-		incorrect = True
-
-	mappings = os.listdir("mappings")
-	if parameters["map_name"] not in mappings:
-		print("Mapping does not exist!")
-		incorrect = True
-
 	if incorrect:
 		exit(0)
 
 def calculate_bounds():
-	files = os.listdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_raw_ocr/")
-	files.sort()
-	files = files[1:]
+	spec_prefix = parameters["book_name"] + "_model_" + parameters["model_name"][:-3] + "_map_" + parameters["map_name"][:-4]
+	files = os.listdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_post_edited/" + spec_prefix + "/")
+	new_files = []
+	for file in files:
+		if file.endswith(".txt"):
+			new_files.append(int(file.split("_")[-1].strip(".txt")))
+	new_files.sort()
+	files = new_files
 
 	if parameters["start_page"]==None:
-		parameters["start_page"] = int(files[0].split("_")[-1].strip(".txt"))
+		parameters["start_page"] = files[0]
 	if parameters["end_page"]==None:
-		parameters["end_page"] = int(files[-1].split("_")[-1].strip(".txt"))
+		parameters["end_page"] = files[-1]
 
 	if parameters["start_page"]>parameters["end_page"]:
 		print("Start page cannot be greater than end page")
@@ -113,6 +108,9 @@ def alignFilesBasic(start_page, end_page, OneEncodePrefix, OneEncodeFolder, TwoE
 
 def strip_text(raw_text):
 	no_punc_text = "".join([c for c in raw_text if (c not in arabic_punctuation and 1536 <= ord(c) <= 1791) or c == " " ])
+	
+	no_punc_text = araby.strip_shadda(araby.strip_harakat(no_punc_text)).replace("آ", "ا").replace("إ", "ا").replace("أ", "ا")
+
 	return no_punc_text
 
 
