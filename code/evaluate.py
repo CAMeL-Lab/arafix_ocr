@@ -11,6 +11,7 @@ import configparser
 import pyarabic.araby as araby
 import pyarabic.number as number
 import shutil
+import re
 
 
 arabic_punctuation = [c for c in camel_tools.utils.charsets.UNICODE_PUNCT_CHARSET if 1536 <= ord(c) <= 1791]
@@ -107,8 +108,9 @@ def alignFilesBasic(start_page, end_page, OneEncodePrefix, OneEncodeFolder, TwoE
         p = subprocess.getstatusoutput(command)
 
 def strip_text(raw_text):
-	no_punc_text = "".join([c for c in raw_text if (c not in arabic_punctuation and 1536 <= ord(c) <= 1791) or c == " " ])
-	
+	no_punc_text = "".join([c for c in raw_text.replace("\n", " ") if (c not in arabic_punctuation and 1536 <= ord(c) <= 1791) or c == " " ])
+	no_punc_text = re.sub(" +", " ", no_punc_text)
+
 	no_punc_text = araby.strip_shadda(araby.strip_harakat(no_punc_text)).replace("آ", "ا").replace("إ", "ا").replace("أ", "ا")
 
 	return no_punc_text
@@ -243,6 +245,16 @@ def calculate_stats(start_page, end_page, save_alignment_as, results_prefix):
 			df.to_csv(save_alignment_as + results_prefix + str(i) + ".csv")
 
 			my_dict = dict(df["operation"].value_counts())
+
+			if "DEL" not in my_dict:
+				my_dict["DEL"] = 0
+
+			if "INS" not in my_dict:
+				my_dict["INS"] = 0
+
+			if "SUB" not in my_dict:
+				my_dict["SUB"] = 0
+
 			my_dict["page_num"] = i
 
 			summary_df = summary_df.append(my_dict, ignore_index = True)
