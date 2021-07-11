@@ -12,8 +12,8 @@ source activate srilm_env
 
 config_name="default.txt"
 book_name="princeton_aco001005_hi"
-start_page="127"
-end_page="180"
+start_page="None"
+end_page="None"
 
 echo ""
 

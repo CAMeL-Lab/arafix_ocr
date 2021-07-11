@@ -236,9 +236,11 @@ predict()
 write_decoded()
 
 
-
 if parameters["keep_scratch"] == "False":
-	shutil.rmtree("data/" + parameters["book_name"] +"/" + parameters["book_name"] + "_post_edited_encoded/")
-	shutil.rmtree("data/" + parameters["book_name"] +"/" + parameters["book_name"] + "_raw_ocr_encoded/")
+	spec_prefix = parameters["book_name"] + "_model_" + parameters["model_name"][:-3] + "_map_" + parameters["map_name"][:-4]
+	prediction_path_encoded = "data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_post_edited_encoded/"+ spec_prefix + "/"
+	shutil.rmtree(prediction_path_encoded)
+
+
 print()
 print("---PREDICTION MODULE COMPLETED---\n")
