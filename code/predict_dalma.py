@@ -200,7 +200,7 @@ def predict():
 
 		command = "/share/apps/NYUAD/srilm/1.6.0/bin/i686-gcc4/disambig " + model_arg + "-keep-unk " + order_arg + map_arg + text_files
 		p = subprocess.getstatusoutput(command)
-
+		
 	print("\n")
 
 
