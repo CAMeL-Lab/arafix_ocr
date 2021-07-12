@@ -10,6 +10,7 @@ import shutil
 begin = int("0600", 16)
 end = int("06FF", 16)
 
+#check if arguments valid
 def check_parameters():
 
 	parameters["book_name"] = args.bookname
@@ -51,6 +52,7 @@ def check_parameters():
 		print("Model does not exist!")
 		incorrect = True
 
+
 	mappings = os.listdir("mappings")
 	if parameters["map_name"] not in mappings:
 		print("Mapping does not exist!")
@@ -59,7 +61,7 @@ def check_parameters():
 	if incorrect:
 		exit(0)
 
-
+#if start and end not defined, assign them lowest and highest possible values
 def calculate_bounds():
 	files = os.listdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_raw_ocr/")
 	new_files = []
@@ -78,6 +80,7 @@ def calculate_bounds():
 		print("Start page cannot be greater than end page")
 		exit(0)
 
+#function to encode text
 def encode(line):
     new_l = []
     line = araby.strip_shadda(araby.strip_harakat(line)).replace("آ", "ا").replace("إ", "ا").replace("أ", "ا")
@@ -102,6 +105,7 @@ def encode(line):
             i += 1
     return "<s> " + " ".join(new_l) + " </s>"
 
+#function to convert raw ocr to raw ocr encoded
 def write_encoded():
 
 	try:
@@ -128,6 +132,7 @@ def write_encoded():
 
 	# print("\n")
 
+#function to decode text
 def decode(l):
 	#     l = l.replace("+", "#")
     # there is an unexpected case in disambig results - #A #B#. 
@@ -137,6 +142,7 @@ def decode(l):
     l = l.replace("# ", " ").replace(" #", " ")
     return l
 
+#function to convert predicted encoded to predicted text
 def write_decoded():
 
 	spec_prefix = parameters["book_name"] + "_model_" + parameters["model_name"][:-3] + "_map_" + parameters["map_name"][:-4]	
@@ -171,6 +177,7 @@ def write_decoded():
 	# print("\n")
 	print("Results written in: ",prediction_path)
 
+#function to predict on raw ocr encoded and get predicte encoded
 def predict():
 	spec_prefix = parameters["book_name"] + "_model_" + parameters["model_name"][:-3] + "_map_" + parameters["map_name"][:-4]		
 	prediction_path = "data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_post_edited_encoded/"+ spec_prefix + "/"
@@ -200,12 +207,13 @@ def predict():
 
 		command = "/share/apps/NYUAD/srilm/1.6.0/bin/i686-gcc4/disambig " + model_arg + "-keep-unk " + order_arg + map_arg + text_files
 		p = subprocess.getstatusoutput(command)
-		
+
 	print("\n")
 
 
 os.chdir("..")
 
+#add arguments to python file
 parser = argparse.ArgumentParser()
 parser.add_argument("-config", "--config", help="Name of config file", default="default.txt")
 parser.add_argument("-bookname", "--bookname", help="Name of book to predict on")
@@ -236,11 +244,11 @@ predict()
 write_decoded()
 
 
+#delete scratch files if needed
 if parameters["keep_scratch"] == "False":
 	spec_prefix = parameters["book_name"] + "_model_" + parameters["model_name"][:-3] + "_map_" + parameters["map_name"][:-4]
 	prediction_path_encoded = "data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_post_edited_encoded/"+ spec_prefix + "/"
 	shutil.rmtree(prediction_path_encoded)
-
 
 print()
 print("---PREDICTION MODULE COMPLETED---\n")

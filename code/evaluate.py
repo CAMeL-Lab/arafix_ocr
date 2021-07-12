@@ -16,6 +16,7 @@ import re
 
 arabic_punctuation = [c for c in camel_tools.utils.charsets.UNICODE_PUNCT_CHARSET if 1536 <= ord(c) <= 1791]
 
+#check if arguments valid
 def check_parameters():
 
 	parameters["book_name"] = args.bookname
@@ -55,6 +56,7 @@ def check_parameters():
 	if incorrect:
 		exit(0)
 
+#if start and end not defined, assign them lowest and highest possible values
 def calculate_bounds():
 	spec_prefix = parameters["book_name"] + "_model_" + parameters["model_name"][:-3] + "_map_" + parameters["map_name"][:-4]
 	files = os.listdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_post_edited/" + spec_prefix + "/")
@@ -74,12 +76,14 @@ def calculate_bounds():
 		print("Start page cannot be greater than end page")
 		exit(0)
 
+#call OperationName to parse aligned files
 def parseOssamaBasic(file_name):
     df = pd.read_csv(file_name, sep = "\t", header = None, engine="python", quoting=csv.QUOTE_NONE)
     df.columns = ["one", 'op', "two", "extra"]
     df["operation"] = df.apply(operationName, axis = 1)
     return df[["operation", "one", "two"]]
 
+#convert operation names to our naming scheme
 def operationName(row):
     if row["op"] == "=":
         return "OK"
@@ -94,7 +98,7 @@ def operationName(row):
         return "DEL"
 
 
-# Basic alignment - Ossama's code
+# Function to do basic alignment of two files
 def alignFilesBasic(start_page, end_page, OneEncodePrefix, OneEncodeFolder, TwoEncodePrefix, TwoEncodeFolder, saveAlignmentAs, alignerLocation, results_prefix):
     for i in range(start_page, end_page + 1):
 
@@ -107,6 +111,7 @@ def alignFilesBasic(start_page, end_page, OneEncodePrefix, OneEncodeFolder, TwoE
 
         p = subprocess.getstatusoutput(command)
 
+#strip text of punctuation and foreign letters
 def strip_text(raw_text):
 	no_punc_text = "".join([c for c in raw_text.replace("\n", " ") if (c not in arabic_punctuation and 1536 <= ord(c) <= 1791) or c == " " ])
 	no_punc_text = re.sub(" +", " ", no_punc_text)
@@ -115,7 +120,7 @@ def strip_text(raw_text):
 
 	return no_punc_text
 
-
+#function to strip text using previous punc for ground truth, ocr and predicted
 def strip_files():
 	spec_prefix = parameters["book_name"] + "_model_" + parameters["model_name"][:-3] + "_map_" + parameters["map_name"][:-4]	
 
@@ -143,7 +148,7 @@ def strip_files():
 
 
 
-
+#align ground truth against ocr
 def align_ground_ocr():
 
 	book_name = parameters["book_name"]
@@ -188,7 +193,7 @@ def align_ground_ocr():
 	if parameters["keep_scratch"]!="True":
 		shutil.rmtree(save_alignment_as)
 
-
+#align ground truth against predicted
 def align_ground_predicted():
 
 	spec_prefix = parameters["book_name"] + "_model_" + parameters["model_name"][:-3] + "_map_" + parameters["map_name"][:-4]	
@@ -236,6 +241,7 @@ def align_ground_predicted():
 	if parameters["keep_scratch"]!="True":
 		shutil.rmtree(save_alignment_as)
 
+#calculate wer for two aligned texts
 def calculate_stats(start_page, end_page, save_alignment_as, results_prefix):
 
 	summary_df = pd.DataFrame()
@@ -271,7 +277,7 @@ def calculate_stats(start_page, end_page, save_alignment_as, results_prefix):
 	# write to file
 	summary_df.to_csv(save_alignment_as + results_prefix + "all.csv")
 
-
+#delete scratch files if needed
 def remove_scratch():
 
 	spec_prefix = parameters["book_name"] + "_model_" + parameters["model_name"][:-3] + "_map_" + parameters["map_name"][:-4]	
@@ -285,10 +291,8 @@ def remove_scratch():
 		os.remove("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_post_edited/"+spec_prefix+"/predicted_stripped_"+str(i)+".txt")
 
 
-
-
 os.chdir("..")
-
+#add arguments to python file
 parser = argparse.ArgumentParser()
 parser.add_argument("-config", "--config", help="Name of config file", default="default.txt")
 parser.add_argument("-bookname", "--bookname", help="Name of book to predict on")
