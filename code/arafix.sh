@@ -1,8 +1,8 @@
 #!/bin/sh
 config_name="default.txt"
-book_name="princeton_aco001005_hi"
-start_page="127"
-end_page="180"
+book_name="sample_book"
+start_page="20"
+end_page="21"
 
 echo ""
 

@@ -13,6 +13,7 @@ import argparse
 import configparser
 import img2pdf
 
+#check if arguments valid
 def check_parameters():
 
 	parameters["book_name"] = args.bookname
@@ -51,7 +52,7 @@ def check_parameters():
 	if incorrect:
 		exit(0)
 
-
+#if start and end not defined, assign them lowest and highest possible values
 def calculate_bounds():
 	files = os.listdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_raw_images/")
 	
@@ -73,6 +74,7 @@ def calculate_bounds():
 		print("Start page cannot be greater than end page")
 		exit(0)
 
+#func to make api request to ocr space
 def ocr_space_func(filename, create_pdf, overlay=False, api_key='helloworld', language='eng'):
     """ OCR.space API request with local file.
         Python3.5 - not tested on 2.7
@@ -105,7 +107,7 @@ def ocr_space_func(filename, create_pdf, overlay=False, api_key='helloworld', la
                           )
     return r.content.decode()
 
-
+#extract page number from a filename
 def get_page_num(filename):
 	started = False
 	number = ""
@@ -119,6 +121,7 @@ def get_page_num(filename):
 	            break
 	return str(int(number))
 
+#convert all specfied pages of the book to text, pdf and json
 def convert_book():
 	
 	raw_path = "data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_raw_images/"
@@ -199,6 +202,7 @@ def convert_book():
 	
 os.chdir("..")
 
+#add arguments to python file
 parser = argparse.ArgumentParser()
 parser.add_argument("-config", "--config", help="Name of config file")
 parser.add_argument("-bookname", "--bookname", help="Name of book to ocr on")
