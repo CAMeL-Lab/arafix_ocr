@@ -11,7 +11,7 @@ module load srilm
 source activate srilm_env
 
 config_name="default.txt"
-book_name="princeton_aco001005_hi"
+book_name="cornell_aco000143"
 start_page="None"
 end_page="None"
 
