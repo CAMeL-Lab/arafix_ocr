@@ -58,14 +58,14 @@ def check_parameters():
 
 #if start and end not defined, assign them lowest and highest possible values
 def calculate_bounds():
-	spec_prefix = parameters["book_name"] + "_model_" + parameters["model_name"][:-3] + "_map_" + parameters["map_name"][:-4]
-	files = os.listdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_post_edited/" + spec_prefix + "/")
-	new_files = []
-	for file in files:
-		if file.endswith(".txt"):
-			new_files.append(int(file.split("_")[-1].strip(".txt")))
-	new_files.sort()
-	files = new_files
+	# spec_prefix = parameters["book_name"] + "_model_" + parameters["model_name"][:-3] + "_map_" + parameters["map_name"][:-4]
+	# files = os.listdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_post_edited/" + spec_prefix + "/")
+	# new_files = []
+	# for file in files:
+	# 	if file.endswith(".txt"):
+	# 		new_files.append(int(file.split("_")[-1].strip(".txt")))
+	# new_files.sort()
+	# files = new_files
 
 	if parameters["start_page"]==None:
 		parameters["start_page"] = files[0]
@@ -128,23 +128,23 @@ def strip_files():
 
 		ground_file = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_ground_truth/"+"ground_truth_"+str(i)+".txt","r")
 		ocr_file = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_raw_ocr/"+"ocr_space_output_"+str(i)+".txt","r")
-		predicted_file = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_post_edited/"+spec_prefix+"/predicted_"+str(i)+".txt","r")
+		# predicted_file = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_post_edited/"+spec_prefix+"/predicted_"+str(i)+".txt","r")
 
 		ground_file_stripped = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_ground_truth/"+"ground_truth_stripped_"+str(i)+".txt","w")
 		ocr_file_stripped = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_raw_ocr/"+"ocr_space_output_stripped_"+str(i)+".txt","w")
-		predicted_file_stripped = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_post_edited/"+spec_prefix+"/predicted_stripped_"+str(i)+".txt","w")
+		# predicted_file_stripped = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_post_edited/"+spec_prefix+"/predicted_stripped_"+str(i)+".txt","w")
 
 		ground_file_stripped.write(strip_text(ground_file.read()))
 		ocr_file_stripped.write(strip_text(ocr_file.read()))
-		predicted_file_stripped.write(strip_text(predicted_file.read()))
+		# predicted_file_stripped.write(strip_text(predicted_file.read()))
 
 		ground_file.close()
 		ocr_file.close()
-		predicted_file.close()
+		# predicted_file.close()
 
 		ground_file_stripped.close()
 		ocr_file_stripped.close()
-		predicted_file_stripped.close()
+		# predicted_file_stripped.close()
 
 
 
@@ -321,7 +321,7 @@ calculate_bounds()
 
 strip_files()
 align_ground_ocr()
-align_ground_predicted()
+# align_ground_predicted()
 remove_scratch()
 
 print()
