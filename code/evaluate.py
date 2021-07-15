@@ -138,24 +138,24 @@ def strip_files():
 	for i in range(parameters["start_page"],parameters["end_page"]+1):
 
 		ground_file = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_ground_truth/"+"ground_truth_"+str(i)+".txt","r")
-		ocr_file = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_raw_ocr/"+"ocr_space_output_"+str(i)+".txt","r")
-		predicted_file = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_post_edited/"+spec_prefix+"/predicted_"+str(i)+".txt","r")
-
 		ground_file_stripped = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_ground_truth/"+"ground_truth_stripped_"+str(i)+".txt","w")
-		ocr_file_stripped = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_raw_ocr/"+"ocr_space_output_stripped_"+str(i)+".txt","w")
-		predicted_file_stripped = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_post_edited/"+spec_prefix+"/predicted_stripped_"+str(i)+".txt","w")
-
 		ground_file_stripped.write(strip_text(ground_file.read()))
-		ocr_file_stripped.write(strip_text(ocr_file.read()))
-		predicted_file_stripped.write(strip_text(predicted_file.read()))
-
 		ground_file.close()
-		ocr_file.close()
-		predicted_file.close()
-
 		ground_file_stripped.close()
-		ocr_file_stripped.close()
-		predicted_file_stripped.close()
+
+		if ocr_exists:
+			ocr_file = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_raw_ocr/"+"ocr_space_output_"+str(i)+".txt","r")
+			ocr_file_stripped = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_raw_ocr/"+"ocr_space_output_stripped_"+str(i)+".txt","w")
+			ocr_file_stripped.write(strip_text(ocr_file.read()))
+			ocr_file.close()
+			ocr_file_stripped.close()
+
+		if pred_exists:
+			predicted_file = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_post_edited/"+spec_prefix+"/predicted_"+str(i)+".txt","r")
+			predicted_file_stripped = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_post_edited/"+spec_prefix+"/predicted_stripped_"+str(i)+".txt","w")
+			predicted_file_stripped.write(strip_text(predicted_file.read()))
+			predicted_file.close()
+			predicted_file_stripped.close()
 
 
 
@@ -297,9 +297,14 @@ def remove_scratch():
 		return
 
 	for i in range(parameters["start_page"], parameters["end_page"]+1):
+		
 		os.remove("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_ground_truth/"+"ground_truth_stripped_"+str(i)+".txt")
-		os.remove("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_raw_ocr/"+"ocr_space_output_stripped_"+str(i)+".txt")
-		os.remove("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_post_edited/"+spec_prefix+"/predicted_stripped_"+str(i)+".txt")
+		
+		if ocr_exists:
+			os.remove("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_raw_ocr/"+"ocr_space_output_stripped_"+str(i)+".txt")
+		
+		if pred_exists:
+			os.remove("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_post_edited/"+spec_prefix+"/predicted_stripped_"+str(i)+".txt")
 
 
 os.chdir("..")
@@ -332,13 +337,23 @@ pred_exists = False
 
 check_exists()
 
+if not ground_exists:
+	exit(0)
+
 check_parameters()
 calculate_bounds()
-
-
 strip_files()
-align_ground_ocr()
-align_ground_predicted()
+
+if ocr_exists:
+	align_ground_ocr()
+else:
+	print("OCR folder does not exist!")
+
+if pred_exists:
+	align_ground_predicted()
+else:
+	print("Prediction folder for the specification selected does not exist!")
+
 remove_scratch()
 
 print()
