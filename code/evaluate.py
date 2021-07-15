@@ -16,6 +16,17 @@ import re
 
 arabic_punctuation = [c for c in camel_tools.utils.charsets.UNICODE_PUNCT_CHARSET if 1536 <= ord(c) <= 1791]
 
+#check what folders exist for eval 
+def check_exists():
+
+	ground_path = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_ground_truth/")
+	ocr_path = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_raw_ocr/")
+	predicted_path = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_post_edited/"+spec_prefix)
+
+	ground_exists = os.path.isdir(ground_path)
+	ocr_exists = os.path.isdir(ocr_path)
+	pred_exists = os.path.isdir(predicted_path)
+
 #check if arguments valid
 def check_parameters():
 
@@ -58,14 +69,14 @@ def check_parameters():
 
 #if start and end not defined, assign them lowest and highest possible values
 def calculate_bounds():
-	# spec_prefix = parameters["book_name"] + "_model_" + parameters["model_name"][:-3] + "_map_" + parameters["map_name"][:-4]
-	# files = os.listdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_post_edited/" + spec_prefix + "/")
-	# new_files = []
-	# for file in files:
-	# 	if file.endswith(".txt"):
-	# 		new_files.append(int(file.split("_")[-1].strip(".txt")))
-	# new_files.sort()
-	# files = new_files
+	spec_prefix = parameters["book_name"] + "_model_" + parameters["model_name"][:-3] + "_map_" + parameters["map_name"][:-4]
+	files = os.listdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_ground_truth/")
+	new_files = []
+	for file in files:
+		if file.endswith(".txt"):
+			new_files.append(int(file.split("_")[-1].strip(".txt")))
+	new_files.sort()
+	files = new_files
 
 	if parameters["start_page"]==None:
 		parameters["start_page"] = files[0]
@@ -128,23 +139,23 @@ def strip_files():
 
 		ground_file = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_ground_truth/"+"ground_truth_"+str(i)+".txt","r")
 		ocr_file = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_raw_ocr/"+"ocr_space_output_"+str(i)+".txt","r")
-		# predicted_file = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_post_edited/"+spec_prefix+"/predicted_"+str(i)+".txt","r")
+		predicted_file = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_post_edited/"+spec_prefix+"/predicted_"+str(i)+".txt","r")
 
 		ground_file_stripped = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_ground_truth/"+"ground_truth_stripped_"+str(i)+".txt","w")
 		ocr_file_stripped = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_raw_ocr/"+"ocr_space_output_stripped_"+str(i)+".txt","w")
-		# predicted_file_stripped = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_post_edited/"+spec_prefix+"/predicted_stripped_"+str(i)+".txt","w")
+		predicted_file_stripped = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_post_edited/"+spec_prefix+"/predicted_stripped_"+str(i)+".txt","w")
 
 		ground_file_stripped.write(strip_text(ground_file.read()))
 		ocr_file_stripped.write(strip_text(ocr_file.read()))
-		# predicted_file_stripped.write(strip_text(predicted_file.read()))
+		predicted_file_stripped.write(strip_text(predicted_file.read()))
 
 		ground_file.close()
 		ocr_file.close()
-		# predicted_file.close()
+		predicted_file.close()
 
 		ground_file_stripped.close()
 		ocr_file_stripped.close()
-		# predicted_file_stripped.close()
+		predicted_file_stripped.close()
 
 
 
@@ -315,13 +326,19 @@ parameters = dict(config.items('evaluate'))
 print()
 print("---EVALUATION MODULE STARTED---\n")
 
+ground_exists = False
+ocr_exists = False
+pred_exists = False 
+
+check_exists()
+
 check_parameters()
 calculate_bounds()
 
 
 strip_files()
 align_ground_ocr()
-# align_ground_predicted()
+align_ground_predicted()
 remove_scratch()
 
 print()
