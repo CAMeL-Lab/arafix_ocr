@@ -19,9 +19,15 @@ arabic_punctuation = [c for c in camel_tools.utils.charsets.UNICODE_PUNCT_CHARSE
 #check what folders exist for eval 
 def check_exists():
 
-	ground_path = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_ground_truth/")
-	ocr_path = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_raw_ocr/")
-	predicted_path = open("data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_post_edited/"+spec_prefix)
+	spec_prefix = parameters["book_name"] + "_model_" + parameters["model_name"][:-3] + "_map_" + parameters["map_name"][:-4]
+
+	ground_path = "data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_ground_truth/"
+	ocr_path = "data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_raw_ocr/"
+	predicted_path = "data/"+parameters["book_name"]+"/"+parameters["book_name"]+"_post_edited/"+spec_prefix
+
+	global ground_exists
+	global ocr_exists
+	global pred_exists
 
 	ground_exists = os.path.isdir(ground_path)
 	ocr_exists = os.path.isdir(ocr_path)
@@ -335,12 +341,14 @@ ground_exists = False
 ocr_exists = False
 pred_exists = False 
 
-check_exists()
 
+
+check_parameters()
+
+check_exists()
 if not ground_exists:
 	exit(0)
 
-check_parameters()
 calculate_bounds()
 strip_files()
 
