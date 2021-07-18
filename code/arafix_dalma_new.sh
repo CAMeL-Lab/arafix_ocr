@@ -26,7 +26,7 @@ echo "~~~RUNNING ARAFIX FOR BOOK: ${book_name}~~~"
 # -endpage "${end_page}" 
 
 
-python predict_dalma.py \
+python predict_dalma_new.py \
 -config "${config_name}" \
 -bookname "${book_name}" \
 -startpage "${start_page}" \
