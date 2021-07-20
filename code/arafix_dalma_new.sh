@@ -1,6 +1,4 @@
 #!/bin/bash
-#SBATCH --mail-type=ALL
-#SBATCH --mail-user=aaa974
 #SBATCH --mem=50000
 #SBATCH --time=48:00:00
 
