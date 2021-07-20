@@ -195,6 +195,8 @@ def predict():
 	print("Start Page: ", parameters["start_page"])
 	print("End Page: ", parameters["end_page"])
 
+	already_predicted = os.listdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_post_edited/"+ spec_prefix + "/")
+	
 	for i in range(parameters["start_page"],parameters["end_page"]+1):
 
 		print("Current Page: ", i, end = "\r")
@@ -206,7 +208,11 @@ def predict():
 		text_files = "-text " + raw_ocr_arg + ">" + predicted_arg
 
 		command = "code/srilm-1.7.3/bin/macosx/disambig " + model_arg + "-keep-unk " + order_arg + map_arg + text_files
-		p = subprocess.getstatusoutput(command)
+		
+		if "predicted_" + str(i) + ".txt" in already_predicted and parameters["skip_converted"]=="True":
+			continue
+		else:
+			p = subprocess.getstatusoutput(command)
 
 	print("\n")
 

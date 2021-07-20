@@ -1,8 +1,8 @@
 #!/bin/sh
 config_name="default.txt"
-book_name="princeton_aco001005_hi"
-start_page="126"
-end_page="179"
+book_name="sample_book"
+start_page="20"
+end_page="21"
 
 echo ""
 
@@ -15,15 +15,15 @@ echo "~~~RUNNING ARAFIX FOR BOOK: ${book_name}~~~"
 # -endpage "${end_page}" 
 
 
-# python predict.py \
-# -config "${config_name}" \
-# -bookname "${book_name}" \
-# -startpage "${start_page}" \
-# -endpage "${end_page}" 
-
-python evaluate.py \
+python predict.py \
 -config "${config_name}" \
 -bookname "${book_name}" \
 -startpage "${start_page}" \
 -endpage "${end_page}" 
+
+# python evaluate.py \
+# -config "${config_name}" \
+# -bookname "${book_name}" \
+# -startpage "${start_page}" \
+# -endpage "${end_page}" 
 
