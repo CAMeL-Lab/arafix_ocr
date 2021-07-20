@@ -113,12 +113,12 @@ def write_encoded():
 	for i in range(parameters["start_page"],parameters["end_page"]+1):
 
 		# print("Current Page: ", i, end = "\r")
-		original_file = open("data/" + parameters["book_name"]+ "/" + parameters["book_name"] +"_raw_ocr/" + "ocr_space_output_" + str(i) + ".txt","r")
+		original_file = open("data/" + parameters["book_name"]+ "/" + parameters["book_name"] +"_raw_ocr/" + "ocr_space_output_" + str(i) + ".txt","r",encoding="utf8")
 		encoded_text = ""
 		for line in original_file:
 			encoded_text = encoded_text + encode(line) + "\n"
 
-		encoded_file = open("data/" + parameters["book_name"]+ "/" + parameters["book_name"] + "_raw_ocr_encoded/" + "ocr_space_output_encoded_" + str(i) + ".txt","w")
+		encoded_file = open("data/" + parameters["book_name"]+ "/" + parameters["book_name"] + "_raw_ocr_encoded/" + "ocr_space_output_encoded_" + str(i) + ".txt","w",encoding="utf8")
 		encoded_file.write(encoded_text)
 		original_file.close()
 		encoded_file.close()
@@ -160,9 +160,9 @@ def write_decoded():
 
 		# print("Current Page: ", i, end = "\r")
 
-		original_file = open(prediction_path_encoded + "predicted_encoded_" + str(i) + ".txt","r")
+		original_file = open(prediction_path_encoded + "predicted_encoded_" + str(i) + ".txt","r",encoding="utf8")
 		decoded_text = decode(original_file.read())
-		decoded_file = open(prediction_path + "predicted_" + str(i) + ".txt","w")
+		decoded_file = open(prediction_path + "predicted_" + str(i) + ".txt","w",encoding="utf8")
 		decoded_file.write(decoded_text)
 		original_file.close()
 		decoded_file.close()
@@ -188,8 +188,11 @@ def predict():
 	print("Start Page: ", parameters["start_page"])
 	print("End Page: ", parameters["end_page"])
 
-	already_predicted = os.listdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_post_edited/"+ spec_prefix + "/")
-	
+	if os.path.isdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_post_edited/") and os.path.isdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_post_edited/"+ spec_prefix + "/"):
+		already_predicted = os.listdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_post_edited/"+ spec_prefix + "/")
+	else:
+		already_predicted = []
+		
 	for i in range(parameters["start_page"],parameters["end_page"]+1):
 
 		print("Current Page: ", i, end = "\r")
