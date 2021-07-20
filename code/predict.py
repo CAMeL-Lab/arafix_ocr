@@ -195,8 +195,11 @@ def predict():
 	print("Start Page: ", parameters["start_page"])
 	print("End Page: ", parameters["end_page"])
 
-	already_predicted = os.listdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_post_edited/"+ spec_prefix + "/")
-	
+	if os.path.isdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_post_edited/") and os.path.isdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_post_edited/"+ spec_prefix + "/"):
+		already_predicted = os.listdir("data/" + parameters["book_name"] + "/" + parameters["book_name"] + "_post_edited/"+ spec_prefix + "/")
+	else:
+		already_predicted = []
+
 	for i in range(parameters["start_page"],parameters["end_page"]+1):
 
 		print("Current Page: ", i, end = "\r")
