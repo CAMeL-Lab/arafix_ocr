@@ -69,6 +69,8 @@
 
 ## Usage
 
+IMPORTANT NOTE: As of now, the predict module is not ready for use. Thus, all related commands in arafix have been commented out. Given the current functionality, a user can scan an image and evaluate its accuracy but the output cannot be improved using the predict module.
+
 To run arafix, do the following:
 1) Open the data folder and create a subfolder with the name of the book you intend to run arafix on
 2) Within the book's subfolder, create a subfolder named <book_name>_raw_ocr
@@ -78,11 +80,10 @@ To run arafix, do the following:
 6) Modify variables* as needed
 7) Open terminal and navigate to arafix_ocr
 8) ```cd code```
-9) ```sh arafix.sh```
+9) ```sh arafix.sh 'book_name'```
 
 *arafix.sh variables:
 - config_name: which config file should arafix read the settings from
-- book_name: which book should arafix run on
 - start_page: which page should arafix start running from. Set it to "None" to run it from the lowest possible page.
 - end_page: which page should arafix run till (inclusive). Set it to "None" to run till the highest possible page.
 
