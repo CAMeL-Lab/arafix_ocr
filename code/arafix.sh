@@ -1,18 +1,18 @@
 #!/bin/sh
-config_name=$1
-book_name=$2
-start_page=$3
-end_page=$4
+config_name="default.txt"
+book_name=$1
+start_page="None"
+end_page="None"
 
 echo ""
 
 echo "~~~RUNNING ARAFIX FOR BOOK: ${book_name}~~~"
 
-# python image_to_text.py \
-# -config "${config_name}" \
-# -bookname "${book_name}" \
-# -startpage "${start_page}" \
-# -endpage "${end_page}" 
+python image_to_text.py \
+-config "${config_name}" \
+-bookname "${book_name}" \
+-startpage "${start_page}" \
+-endpage "${end_page}" 
 
 
 # python predict.py \
