@@ -2,8 +2,7 @@
 
 ## Installation Guide
 
-- Download srilm: Navigate to this [link](http://www.speech.sri.com/projects/srilm/download.html) and download version of 1.7.3 of srilm
-- Move srilm: Move srilm to the main directory of this repository
+- Download srilm: Navigate to this [link](http://www.speech.sri.com/projects/srilm/download.html) and download version of 1.7.3 of srilm into the main directory of this repo
 - Run the following commands:
 
   ```cd code```
@@ -12,7 +11,61 @@
   
   The previous command will install all the required dependencies for arafix. The tool should be ready to use!
   
+## Usage
+
+Arafix has 3 main modules:
+1) image_to_text: converts image to text and searchable pdf
+2) predict: improves the generated text from previous module
+3) evaluate: evaluates the word error rate of outputs from the first and second modules
+
+IMPORTANT NOTE: As of now, the predict module is not ready for use. Thus, all related commands in arafix have been commented out. Given the current functionality, a user can scan an image and evaluate its accuracy but the output cannot be improved using the predict module.
+
+To run arafix, do the following:
+1) Open the data folder and create a subfolder with the name of the book you intend to run arafix on
+2) Within the book's subfolder, create a subfolder named <book_name>_raw_ocr
+3) Within the <book_name>_raw_ocr subfolder, add all the pages of the respective book as .tif files
+4) Optionally, if you intend to perform evaluation of your result (only if you have ground truth), create another subfolder within the <book_name> folder called <book_name>_ground_truth. This folder should contain the ground truth text files for your book (one file for every page). 
+5) Open code/arafix.sh in a text editor
+6) Modify variables* as needed
+7) Open terminal and navigate to arafix_ocr
+8) ```cd code```
+9) ```sh arafix.sh 'book_name'```
+
+*arafix.sh variables:
+- config_name: which config file should arafix read the settings from
+- start_page: which page should arafix start running from. Set it to "None" to run it from the lowest possible page.
+- end_page: which page should arafix run till (inclusive). Set it to "None" to run till the highest possible page.
+
+
+### [Optional] Configuration
+
+Arafix runs with the default settings as described in the configs/default.txt file. If you wish to modify these settings, do the following:
+1) Create a copy of default.txt and modify the parameters within this file
+2) Update arafix.sh with the name of the new config file in config_name variable.
+
+Configuration Parameters:
+- image_to_text
+  - api_key: Obtained from ocr.space, a commercial scanning software
+  - skip_converted (True/False): If true, it skips files which have already been converted to save API calls
+  - create_pdf (True/False): If true, it creates searchable pdfs as well
+
+- predict
+  - map_name (check mappings directory for possible options): Different mapping files are used to fix different kinds of errors
+  - model_name (m1.lm/m2.lm): m1 is more accuracte but slower 
+  - order (1-8): the tool performs best at order 8. if it's lower, it will take lesser time to execute at the cost of reduced accuracy
+  - keep_scratch (True/False): if set to False, it deletes all the scratch files generated during prediction
+  - create_pdf (True/False): if set to true, it will use fix the errors in the searchable pdf created in the previous module.
+
+- evaluate
+
+  select the next 3 parameters depending on the results you would like to evaluate (e.g. if you fixed errors using order 8 and segmenter mapping then select the same in this step to carry out its evaluation)
   
+  - map_name 
+  - model_name
+  - order
+  - keep_scratch (True/False): if set to False, it deletes all the scratch files generated during evaluation
+
+
 ## File Organization
 ```
 📦code 
@@ -66,60 +119,6 @@
 ┃ ┃ ┣ 📜ocr_space_output_2.txt
 ┃ ┃ ┗ 📜ocr_space_output_3.txt
 ```
-
-## Usage
-
-Arafix has 3 main modules:
-- image_to_text: converts image to text and searchable pdf
-- predict: improves the generated text from previous module
-- evaluate: evaluates the word error rate of outputs from the first and second modules
-
-IMPORTANT NOTE: As of now, the predict module is not ready for use. Thus, all related commands in arafix have been commented out. Given the current functionality, a user can scan an image and evaluate its accuracy but the output cannot be improved using the predict module.
-
-To run arafix, do the following:
-1) Open the data folder and create a subfolder with the name of the book you intend to run arafix on
-2) Within the book's subfolder, create a subfolder named <book_name>_raw_ocr
-3) Within the <book_name>_raw_ocr subfolder, add all the pages of the respective book as .tif files
-4) Optionally, if you intend to perform evaluation of your result (only if you have ground truth), create another subfolder within the <book_name> folder called <book_name>_ground_truth. This folder should contain the ground truth text files for your book (one file for every page). 
-5) Open code/arafix.sh in a text editor
-6) Modify variables* as needed
-7) Open terminal and navigate to arafix_ocr
-8) ```cd code```
-9) ```sh arafix.sh 'book_name'```
-
-*arafix.sh variables:
-- config_name: which config file should arafix read the settings from
-- start_page: which page should arafix start running from. Set it to "None" to run it from the lowest possible page.
-- end_page: which page should arafix run till (inclusive). Set it to "None" to run till the highest possible page.
-
-
-### [Optional] Configuration
-
-Arafix runs with the default settings as described in the configs/default.txt file. If you wish to modify these settings, do the following:
-1) Create a copy of default.txt and modify the parameters within this file
-2) Update arafix.sh with the name of the new config file in config_name variable.
-
-Configuration Parameters:
-- image_to_text
-  - api_key: Obtained from ocr.space, a commercial scanning software
-  - skip_converted (True/False): If true, it skips files which have already been converted to save API calls
-  - create_pdf (True/False): If true, it creates searchable pdfs as well
-
-- predict
-  - map_name (check mappings directory for possible options): Different mapping files are used to fix different kinds of errors
-  - model_name (m1.lm/m2.lm): m1 is more accuracte but slower 
-  - order (1-8): the tool performs best at order 8. if it's lower, it will take lesser time to execute at the cost of reduced accuracy
-  - keep_scratch (True/False): if set to False, it deletes all the scratch files generated during prediction
-  - create_pdf (True/False): if set to true, it will use fix the errors in the searchable pdf created in the previous module.
-
-- evaluate
-
-  select the next 3 parameters depending on the results you would like to evaluate (e.g. if you fixed errors using order 8 and segmenter mapping then select the same in this step to carry out its evaluation)
-  
-  - map_name 
-  - model_name
-  - order
-  - keep_scratch (True/False): if set to False, it deletes all the scratch files generated during evaluation
 
 ## Technical Documentation
   - Models: The models were built using the ```ngram-count``` function in the SRILM toolkit. The following specfications were used:
