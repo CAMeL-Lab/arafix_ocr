@@ -1,15 +1,15 @@
 # arafix_ocr
 
 ## Installation Guide
-
-- Download srilm: Navigate to this [link](http://www.speech.sri.com/projects/srilm/download.html) and download version of 1.7.3 of srilm into the main directory of this repo
+<!-- 
+- Download srilm: Navigate to this [link](http://www.speech.sri.com/projects/srilm/download.html) and download version of 1.7.3 of srilm into the main directory of this repo -->
 - Run the following commands:
 
   ```cd code```
   
   ```sh install.sh```
   
-  The previous command will install all the required dependencies for arafix. The tool should be ready to use!
+  The previous commands will install all the required dependencies for arafix. The tool should be ready to use!
   
 ## Usage
 
