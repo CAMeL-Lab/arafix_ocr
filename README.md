@@ -69,6 +69,11 @@
 
 ## Usage
 
+Arafix has 3 main modules:
+- image_to_text: converts image to text and searchable pdf
+- predict: improves the generated text from previous module
+- evaluate: evaluates the word error rate of outputs from the first and second modules
+
 IMPORTANT NOTE: As of now, the predict module is not ready for use. Thus, all related commands in arafix have been commented out. Given the current functionality, a user can scan an image and evaluate its accuracy but the output cannot be improved using the predict module.
 
 To run arafix, do the following:
