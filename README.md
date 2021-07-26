@@ -115,6 +115,17 @@ Configuration Parameters:
   - order
   - keep_scratch (True/False): if set to False, it deletes all the scratch files generated during evaluation
 
-## Documentation
-  
+## Technical Documentation
+  - Models: The models were built using the ```ngram-count``` function in the SRILM toolkit. The following specfications were used:
+    - Order: 8
+    - Smoothing: Kneser-Ney
+    - keep-unk: True
+
+  - arafix.sh: This bash script is the main function to be executed. It calls the 3 main modules of arafix tool. arafix_dalma.sh provides the same code but with dalma compatibility
+  - image_to_text.py: This module uses the OCR Space API to convert images into text. It also stores relevant JSON info of the OCR'ed files. The settings for the API calls can be modified within ocr_space_func() 
+  - predict.py: This module does the following:
+    - encode the input text
+    - pass the encoded text to ```disambig``` function of SRILM toolkit
+    - decode the text outputted by disambig
+  - evaluate.py: This module uses ced_word_alignment tool to align the ground truth against ocr and predicted. Then it calculates word error rate using the following formula: (subs + deletions + insertions) / (subs + deletions + correct words) 
   
