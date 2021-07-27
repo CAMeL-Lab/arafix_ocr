@@ -12,6 +12,67 @@ import json
 import argparse
 import configparser
 import img2pdf
+import io
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import A4
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak
+from reportlab.lib.units import cm
+from reportlab.pdfbase.pdfmetrics import stringWidth
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+import PIL
+import reportlab
+import arabic_reshaper
+
+def putText(canvasObj,text,x,y,font="Arabic",font_size=20):
+    canvasObj.setFont(font, font_size)
+    text_width = stringWidth(text,font, font_size) 
+    canvasObj.drawString(( x - text_width + 40), A4[1] - y,text)
+
+def putImage(canvasObj,img,x,y,height,width):
+    canvasObj.drawImage(img,x, y, width=width,height=height)
+
+
+def makeEmbeddedPDF(image_path, image_name, page_json, output_folder):
+    image = PIL.Image.open(image_path + image_name)
+    tiff_width, tiff_height = image.size
+    
+    packet = io.BytesIO()
+    can = canvas.Canvas(packet, pagesize=A4)
+    
+    for line in page_json["ParsedResults"][0]["TextOverlay"]["Lines"]:
+
+        lineText = line["LineText"]
+        allLeft = [float(l["Left"]) for l in line["Words"]]
+        maxLeft = max(allLeft)
+
+        allTop = [float(t["Top"]) for t in line["Words"]]
+        avgTop = sum(allTop)/len(allTop)
+        text = arabic_reshaper.reshape(str(lineText))
+    #     print(text)
+
+        putText(can,text[::-1],(maxLeft/tiff_width)*A4[0], (avgTop/tiff_height)*A4[1] + 10)
+
+    putImage(can, image_path + image_name, 0, 0, A4[1], A4[0])
+        
+    can.save()
+
+    #move to the beginning of the StringIO buffer
+    packet.seek(0)
+    new_pdf = PdfFileReader(packet)
+
+    # read your existing PDF
+    existing_pdf = PdfFileReader(open("code/test.pdf", "rb"))
+    output = PdfFileWriter()
+
+    # add the "watermark" (which is the new pdf) on the existing page
+    page = existing_pdf.getPage(0)
+    page.mergePage(new_pdf.getPage(0))
+    output.addPage(page)
+    # finally, write "output" to a real file
+    outputStream = open(output_folder + image_name.replace(".tif", ".pdf"), "wb")
+    output.write(outputStream)
+    outputStream.close()
 
 #check if arguments valid
 def check_parameters():
@@ -179,7 +240,7 @@ def convert_book():
 		# with open(raw_path+file_name_pdf,"wb") as f:
 		# 	f.write(img2pdf.convert(raw_path+file_name))
 
-		page_json = ocr_space_func(filename= raw_path+file_name, language='Ara', api_key = parameters["api_key"], create_pdf = parameters["create_pdf"])
+		page_json = ocr_space_func(filename= raw_path+file_name, language='Ara', api_key = parameters["api_key"], create_pdf = False)
 		page_text = " \n".join([ " ".join(t.split("\t")[::-1]) for t in json.loads(page_json)["ParsedResults"][0]["ParsedText"].split("\r\n") ])
 
 		output_file = open(ocr_path  + "ocr_space_output_" + get_page_num(file_name) + ".txt", "w", encoding = "utf8")
@@ -191,14 +252,17 @@ def convert_book():
 		output_json.close()
 
 		if parameters["create_pdf"] == "True":
-			page_url = json.loads(page_json)["SearchablePDFURL"]
-			r = requests.get(page_url, allow_redirects=True)
-			open(embed_path + "ocr_space_output_embed_pdf" + get_page_num(file_name) + ".pdf", 'wb').write(r.content)
+			# print("making embeddable")
+			makeEmbeddedPDF(raw_path, file_name, json.loads(page_json), embed_path)
+			# page_url = json.loads(page_json)["SearchablePDFURL"]
+			# r = requests.get(page_url, allow_redirects=True)
+			# open(embed_path + "ocr_space_output_embed_pdf" + get_page_num(file_name) + ".pdf", 'wb').write(r.content)
 
 
 	print("\n")
 	print("Results written in: ", ocr_path)
 
+pdfmetrics.registerFont(TTFont('Arabic', '/Users/anasjawed/Downloads/Amiri/Amiri-Regular.ttf'))
 	
 os.chdir("..")
 
