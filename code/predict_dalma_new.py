@@ -130,6 +130,7 @@ def decode(l):
 	#     l = l.replace("+", "#")
     # there is an unexpected case in disambig results - #A #B#. 
     # we are unsure of whether to split or merge this case, and currently we are spliting
+    l = l.replace(" <unk>","")
     l = l.replace("# #", "").replace("+ ", "").replace("</s>", "").replace("<s>", "")
     l = l.replace("# #", "").replace("+ ", "").replace("</s>", "").replace("<s>", "")
     l = l.replace("# ", " ").replace(" #", " ")
