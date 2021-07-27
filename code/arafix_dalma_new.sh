@@ -1,6 +1,8 @@
 #!/bin/bash
 #SBATCH --mem=50000
 #SBATCH --time=48:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=aaa974
 
 module purge
 module load anaconda/2-4.1.1
@@ -10,8 +12,8 @@ source activate srilm_env
 
 config_name=$1
 book_name=$2
-start_page="None"
-end_page="None"
+start_page="9"
+end_page="19"
 
 echo ""
 
