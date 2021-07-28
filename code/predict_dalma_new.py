@@ -209,6 +209,7 @@ def predict():
 			continue
 		else:
 			p = subprocess.getstatusoutput(command)
+			print(p)
 
 	print("\n")
 
