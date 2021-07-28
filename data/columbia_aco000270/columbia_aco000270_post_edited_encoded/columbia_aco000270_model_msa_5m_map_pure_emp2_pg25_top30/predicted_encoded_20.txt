@@ -1,16 +1,16 @@
-<s> م# #ز# #ع </s>
-<s> و# #ا# #ر# #ق# #ت# #ه ع# #ل م# #ا# #ء# #د ا# #ل# #ل# #ق# #ا# #ء ف# #ى ا# #ل# #س# #ا# #ع# #ة ا# #ل# #خ# #ل# #ه# #س# #ة <unk> #م# #و# #ع# #د# #ن# #ا ا# #ل# #ق# #د <unk> </s>
-<s> و# #ك# #أ# #ي# #ا ك# #ا# #ن# #ت ك# #ل# #ة ا# #ل# #م# #و# #ع# #د <unk> #ا# #ل# #ق# #د# #ي# #م# #، و# #ح# #د# #ه# #ا ط# #ي# #س# #ي# #ا س# #ا# #ح# #ر# #ا </s>
-<s> ن# #ق# #ل# #ه م# #ن ح# #ا# #ل# #ة إ# #ل# #ى ح# #ا# #ل# #ة ، و# #أ# #خ# #ر# #ج# #ه م# #ن ا# #ل# #ح# #ذ# #ر و# #ا# #ل# #ت# #ر# #د# #د إ# #ل# #ى ا# #ل# #ر# #ا# #ح# #ة </s>
-<s> و# #ا# #ل# #ا# #س# #ت# #ب# #ش# #ا# #ر <unk> <unk> <unk> و# #ا# #ح# #ت# #ج# #ب# #ت ع# #ن# #ه ص# #ف# #ح# #ة ا# #ل# #ش# #ك# #و# #ك و# #ا# #ل# #آ# #ل# #ا# #م و# #ا# #ل# #م# #ن# #غ# #ص# #ا# #ت </s>
-<s> و# #ل# #م ي# #ر أ# #م# #ا# #م# #ه إ# #ل# #ا <unk> #ا# #ل# #م# #و# #ع# #د ا# #ل# #ق# #د ،# #، م ل <unk> #ا# #ل# #م# #و# #ا# #ع# #ب# #د ا# #ل# #ق# #د# #م# #ة# <unk> ف# #ي ك# #ل ي# #و# #م ، </s>
-<s> و# #م# #ا ك# #ا# #ن# #ت ي# #ح# #ت# #و ه م# #ن س# #ر# #و# #ر و# #م# #ت# #ع# #ه و# #ص# #ف# #ا# #ء ، و# #ذ# #ك# #ر# #ا# #ت ل# #ا ت# #ز# #ا# #ل </s>
-<s> م# #ر# #ت# #س# #م# #ة ف# #ى ا# #ل# #ذ# #ه# #ن ، س# #ا# #ر# #ة ف# #ى ا# #ل# #ح# #و# #ا# #ر# #ح ك# #أ# #ب# #ر# #ا و# #ظ# #ي# #ف# #ة م# #ن و# #ظ# #ا# #ئ# #ف </s>
-<s> ا# #ل# #أ# #ع# #ض# #ا# #ء </s>
-<s> و# #ا# #ن# #ط# #ل# #ق م# #ن ا# #ل# #م# #ر ك# #ب# #ة خ# #ف# #ي# #ف ا# #ل# #خ# #ط# #ى م# #و# #ف# #و# #ر ا# #ل# #ن# #ش# #ا# #ط ت# #ك# #ا# #د ل# #ا ي# #ع# #ر# #ف </s>
-<s> أ# #ح# #د# #ا# #، و# #ي# #ك# #ا# #د ل# #ا ي# #ع# #ر# #ف# #ه م# #ن ك# #ا# #ن ي# #ر# #ا# #ه ق# #ب# #ل ذ# #ل# #ل# #ك ي# #س# #ا# #ع# #ة أ# #و أ# #ق# #ل م# #ن س# #ا# #ع# #ة </s>
-<s> و# #أ# #و# #ل م# #ا خ# #ط# #ر ل# #ي# #ا أ# #ر ي# #د# #خ# #ل ف# #ي ذ# #ل# #ك ا# #ل# #م# #س# #ا# #ء د# #ا# #ر <unk> #ا# #ل# #ص# #و# #ر </s>
-<s> ا# #ل# #م# #ت# #ح# #ر# #ك# #ة <unk> ا# #ل# #ى ك# #ل# #ن# #ا ي# #ل# #ت# #ق# #ب# #ل# #ن ف# #ي# #ه# #ا م# #ه ف# #ظ ا# #ل# #أ# #و# #ق# #ا# #ت ، ك# #أ# #ن# #ه# #ا ا# #ب ك# #ا# #ن </s>
-<s> و# #ص# #د# #ا أ# #م# #ا# #م# #ه و# #ف# #ت# #ح ع# #ل# #ى <unk> #م ر# #ا# #ع# #ي# #ه# #، أ# #و ف# #ل# #ك# #ي# #ة م# #ن# #و# #ع# #ه ر# #م# #ع ع# #ه# #ا </s>
-<s> ا# #ل# #ف# #ع و# #ا# #ل# #ا# #ر# #م# #ا# #ن </s>
-<s> و ت# #ح# #ل# #ث# #ب ا# #ل# #ع# #ا# #ط# #ف# #ة ا# #ي# #ل# #ت# #س# #ا# #ن# #ي# #ة أ# #ي# #ه# #ا أ# #ب# #د# #ا م# #ا# #ي# #ع# #ة ب# #ا# #ل# #م# #ر# #ا# #س# #م </s>
+<s> <unk> <unk> <unk> </s>
+<s> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> </s>
+<s> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> </s>
+<s> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> </s>
+<s> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> </s>
+<s> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> </s>
+<s> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> </s>
+<s> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> </s>
+<s> <unk> <unk> <unk> <unk> <unk> <unk> <unk> </s>
+<s> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> </s>
+<s> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> </s>
+<s> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> </s>
+<s> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> </s>
+<s> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> </s>
+<s> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> </s>
+<s> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> </s>

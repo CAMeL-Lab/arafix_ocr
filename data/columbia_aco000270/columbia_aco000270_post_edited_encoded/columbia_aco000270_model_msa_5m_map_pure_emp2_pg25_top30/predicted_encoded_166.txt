@@ -1,5 +1,5 @@
-<s> ١# #٦# #٦ </s>
-<s> أ# #ي# #س# #ت# #ب# #ق# #ي# #ه# #ا ع# #ل أ# #ن ي# #ك# #و# #ن ل# #ه# #ا و# #ح# #د# #ه# #ا و# #ل# #ا ت# #س# #ك# #ا# #ن ل# #ه و# #ح# #د# #ة ؟ ل# #ي# #س# <unk> </s>
-<s> ذ# #ل# #ك ي# #س# #ي# #ر <unk> </s>
-<s> و# #ه# #ك# #ذ# #ا ي# #ت# #ف# #ق أ# #ن ي# #ح# #ا# #س# #ب ا# #ل# #ر# #ج# #ل ا# #ل# #م# #ر# #أ# #ة ب# #م# #ي# #ز# #ا# #ن ا# #ل# #م# #ل# #ا# #ئ# #ك# #ة ، و# #ه# #و </s>
-<s> ل# #ا ي# #س# #ت# #ب# #ع# #د م# #ن# #ه# #ا غ# #د# #ر ا# #ل# #ش# #ب# #ا# #ط# #ي# #ن <unk> </s>
+<s> <unk> <unk> <unk> </s>
+<s> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> </s>
+<s> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> </s>
+<s> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> </s>
+<s> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> <unk> </s>
