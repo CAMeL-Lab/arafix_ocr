@@ -204,7 +204,7 @@ def predict():
 		order_arg = "-order " + parameters["order"] + " "
 		text_files = "-text " + raw_ocr_arg + ">" + predicted_arg
 
-		command = "/share/apps/NYUAD/srilm/1.6.0/bin/i686-gcc4/disambig " + model_arg + order_arg + map_arg + text_files
+		command = "/share/apps/NYUAD/srilm/1.6.0/bin/i686-gcc4/disambig " + model_arg + order_arg + "-keep-unk" + map_arg + text_files
 		if "predicted_" + str(i) + ".txt" in already_predicted and parameters["skip_converted"]=="True":
 			continue
 		else:
