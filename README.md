@@ -1,9 +1,27 @@
 # arafix_ocr
 
-## Installation Guide
+## Introduction
+This tool improves the output of generic OCR systems by utilizing an n-gram based post-correction approach. While most techniques that seek to improve Arabic OCR output focus on the Computer Vision aspect of converting image to text, the post correction module in our tool focuses on taking in the flawed output of one such image to text system and then improving on it without any knowledge of the image.
 
-- Download srilm: Navigate to this [link](http://www.speech.sri.com/projects/srilm/download.html) and download version of 1.7.3 of srilm into the main directory of this repo
+In addition to the post-correction system, this repo contains modules that 
+1) Utilize an external OCR Api to convert image to text
+2) Evaluate the quality of results of the system on the word level (when the ground truth is known)
+
+## How it works
+We first "encode" a given line of text using the following rule: every token is composed of one letter + a hash each in the direction in which it is connected to another character. So for example:
+I am an apple -> I a# #m a# #n a# #p# #p# #l# #e
+
+This encoding has been chosen to address the segmentation issues in Arabic OCR. 
+
+After the line has been encoded, it is run through the main "prediction" tool, which determines if any token needs to be changed based on the tokens that preceed it (n-gram). Finally, the output from the prediction step is decoded by removing the #'s and joining the characters based on space specification. The decoded output is then compared with the ground truth to see if improvements have been made. 
+
+Note: occasionally, the predicted output for a line will contain an impossible scenario such as: A #l# #a. Here, the 'A' token says that it is completely independent (A la), but the '#l#' that follows it says that it should be connected to the 'A' (Ala). In these cases, the default decoding decision is to split the word.
+
+## Installation Guide
+<!-- 
+- Download srilm: Navigate to this [link](http://www.speech.sri.com/projects/srilm/download.html) and download version of 1.7.3 of srilm into the main directory of this repo -->
 - Run the following commands:
+
   ```cd code```
   
   ```sh install.sh```
@@ -127,18 +145,10 @@ Configuration Parameters:
     - keep-unk: True
 
   - arafix.sh: This bash script is the main function to be executed. It calls the 3 main modules of arafix tool. arafix_dalma.sh provides the same code but with dalma compatibility
-  
   - image_to_text.py: This module uses the OCR Space API to convert images into text. It also stores relevant JSON info of the OCR'ed files. The settings for the API calls can be modified within ocr_space_func() 
-  
   - predict.py: This module does the following:
-    - encode the input text as follows:
-      - start of word (ABC -> A\#)
-      - middle of word ( ABC -> \#B\#)
-      - end of word (ABC -> \#C)
-      - independent letter (A -> A)
-      
+    - encode the input text
     - pass the encoded text to ```disambig``` function of SRILM toolkit
-    - decode the text outputted by disambig as follows:
-      A# #r# #a# #f# #i# #x O# #C# #R-> Arafix OCR
+    - decode the text outputted by disambig
   - evaluate.py: This module uses ced_word_alignment tool to align the ground truth against ocr and predicted. Then it calculates word error rate using the following formula: (subs + deletions + insertions) / (subs + deletions + correct words) 
   
