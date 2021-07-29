@@ -46,17 +46,6 @@ To run arafix, do the following:
 - start_page: which page should arafix start running from. Set it to "None" to run it from the lowest possible page.
 - end_page: which page should arafix run till (inclusive). Set it to "None" to run till the highest possible page.
 
-## How it works
-We first "encode" a given line of text using the following rule: every token is composed of one letter + a hash each in the direction in which it is connected to another character. So for example:
-
-I am an apple -> I a# #m a# #n a# #p# #p# #l# #e
-
-This encoding has been chosen to address the segmentation issues in Arabic OCR. 
-
-After the line has been encoded, it is run through the main "prediction" tool, which determines if any token needs to be changed based on the tokens that preceed it (n-gram). Finally, the output from the prediction step is decoded by removing the #'s and joining the characters based on space specification. The decoded output is then compared with the ground truth to see if improvements have been made. 
-
-Note: occasionally, the predicted output for a line will contain an impossible scenario such as: A #l# #a. Here, the 'A' token says that it is completely independent (A la), but the '#l#' that follows it says that it should be connected to the 'A' (Ala). In these cases, the default decoding decision is to split the word.
-
 ### [Optional] Configuration
 
 Arafix runs with the default settings as described in the configs/default.txt file. If you wish to modify these settings, do the following:
@@ -140,6 +129,7 @@ Configuration Parameters:
 ┃ ┃ ┗ 📜ocr_space_output_3.txt
 ```
 
+
 ## Technical Documentation
   - Versioning: As for python, version 3.8.3 was used. utils/dependencies.txt and install.sh contain the required packages with their respective versions.
   - Models: The models were built using the ```ngram-count``` function in the SRILM toolkit. The following specfications were used:
@@ -155,9 +145,12 @@ Configuration Parameters:
       - middle of word ( ABC -> \#B\#)
       - end of word (ABC -> \#C)
       - independent letter (A -> A)
-    - pass the encoded text to ```disambig``` function of SRILM toolkit
+    Example: I am an apple -> I a# #m a# #n a# #p# #p# #l# #e
+    - pass the encoded text to ```disambig``` function of SRILM toolkit which determines if any token needs to be changed based on the tokens that preceed it (n-gram)
     - decode the text outputted by disambig as follows:
       A# #r# #a# #f# #i# #x O# #C# #R-> Arafix OCR
+      
+Note: occasionally, the predicted output for a line will contain an impossible scenario such as: A #l# #a. Here, the 'A' token says that it is completely independent (A la), but the '#l#' that follows it says that it should be connected to the 'A' (Ala). In these cases, the default decoding decision is to split the word.
       
   - evaluate.py: This module uses ced_word_alignment tool to align the ground truth against ocr and predicted. Then it calculates word error rate using the following formula: (subs + deletions + insertions) / (subs + deletions + correct words) 
   
