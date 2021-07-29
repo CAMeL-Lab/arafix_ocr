@@ -7,3 +7,6 @@ ocrspace
 requests
 PyPDF2
 img2pdf 
+pillow
+reportlab
+arabic_reshaper
