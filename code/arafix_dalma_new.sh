@@ -13,7 +13,7 @@ source activate srilm_env
 config_name=$1
 book_name=$2
 start_page="9"
-end_page="29"
+end_page="19"
 
 echo ""
 
