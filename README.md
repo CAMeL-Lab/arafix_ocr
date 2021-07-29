@@ -1,11 +1,11 @@
 # arafix_ocr
 
 ## Introduction
-This tool improves the output of generic OCR systems by utilizing an n-gram based post-correction approach. While most techniques that seek to improve Arabic OCR output focus on the Computer Vision aspect of converting image to text, the post correction module in our tool focuses on taking in the flawed output of one such image to text system and then improving on it without any knowledge of the image.
+This tool improves the output of generic OCR systems by utilizing an n-gram based post-correction approach. While most techniques that seek to improve Arabic OCR output focus on the Computer Vision aspect of converting image to text, the post correction module in our tool focuses on improving the output of OCR systems without any knowledge of the image and relying completely on the OCR text.
 
-In addition to the post-correction system, this repo contains modules that 
+In addition to the post-correction system, this repo contains modules that: 
 1) Utilize an external OCR API to convert image to text
-2) A tool that takes in an image and text (with positions for every word) and generates an embedded PDF
+2) Convert images into embedded/searchable PDFs
 3) Evaluate the quality of results of the system on the word level (when the ground truth is known)
 
 ![Arafix Layout](https://github.com/aizazansari/arafix_ocr/blob/841b9deca62abe53b5647474de4a72536fb0d37f/code/utils/Arafix%20Layout.png)
