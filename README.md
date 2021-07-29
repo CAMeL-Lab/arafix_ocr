@@ -7,16 +7,6 @@ In addition to the post-correction system, this repo contains modules that
 1) Utilize an external OCR Api to convert image to text
 2) Evaluate the quality of results of the system on the word level (when the ground truth is known)
 
-## How it works
-We first "encode" a given line of text using the following rule: every token is composed of one letter + a hash each in the direction in which it is connected to another character. So for example:
-I am an apple -> I a# #m a# #n a# #p# #p# #l# #e
-
-This encoding has been chosen to address the segmentation issues in Arabic OCR. 
-
-After the line has been encoded, it is run through the main "prediction" tool, which determines if any token needs to be changed based on the tokens that preceed it (n-gram). Finally, the output from the prediction step is decoded by removing the #'s and joining the characters based on space specification. The decoded output is then compared with the ground truth to see if improvements have been made. 
-
-Note: occasionally, the predicted output for a line will contain an impossible scenario such as: A #l# #a. Here, the 'A' token says that it is completely independent (A la), but the '#l#' that follows it says that it should be connected to the 'A' (Ala). In these cases, the default decoding decision is to split the word.
-
 ## Installation Guide
 <!-- 
 - Download srilm: Navigate to this [link](http://www.speech.sri.com/projects/srilm/download.html) and download version of 1.7.3 of srilm into the main directory of this repo -->
@@ -53,6 +43,16 @@ To run arafix, do the following:
 - start_page: which page should arafix start running from. Set it to "None" to run it from the lowest possible page.
 - end_page: which page should arafix run till (inclusive). Set it to "None" to run till the highest possible page.
 
+## How it works
+We first "encode" a given line of text using the following rule: every token is composed of one letter + a hash each in the direction in which it is connected to another character. So for example:
+
+I am an apple -> I a# #m a# #n a# #p# #p# #l# #e
+
+This encoding has been chosen to address the segmentation issues in Arabic OCR. 
+
+After the line has been encoded, it is run through the main "prediction" tool, which determines if any token needs to be changed based on the tokens that preceed it (n-gram). Finally, the output from the prediction step is decoded by removing the #'s and joining the characters based on space specification. The decoded output is then compared with the ground truth to see if improvements have been made. 
+
+Note: occasionally, the predicted output for a line will contain an impossible scenario such as: A #l# #a. Here, the 'A' token says that it is completely independent (A la), but the '#l#' that follows it says that it should be connected to the 'A' (Ala). In these cases, the default decoding decision is to split the word.
 
 ### [Optional] Configuration
 
