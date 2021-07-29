@@ -32,8 +32,8 @@ IMPORTANT NOTE: As of now, the predict module is not ready for use. Thus, all re
 
 To run arafix, do the following:
 1) Open the data folder and create a subfolder with the name of the book you intend to run arafix on
-2) Within the book's subfolder, create a subfolder named <book_name>_raw_ocr
-3) Within the <book_name>_raw_ocr subfolder, add all the pages of the respective book as .tif files
+2) Within the book's subfolder, create a subfolder named <book_name>_raw_images
+3) Within the <book_name>_raw_images subfolder, add all the pages of the respective book as .tif files
 4) Optionally, if you intend to perform evaluation of your result (only if you have ground truth), create another subfolder within the <book_name> folder called <book_name>_ground_truth. This folder should contain the ground truth text files for your book (one file for every page). 
 5) Open code/arafix.sh in a text editor
 6) Modify variables* as needed
@@ -60,7 +60,7 @@ Configuration Parameters:
 
 - predict
   - map_name (check mappings directory for possible options): Different mapping files are used to fix different kinds of errors
-  - model_name (m1.lm/m2.lm): m1 is more accuracte but slower 
+  - model_name (openiti_5m.lm, openiti_70m.lm, msa_5m.lm, msa_70m.lm): openiti models are based on islamic data while msa models are based on novels. 5m versions are quicker but less accurate
   - order (1-8): the tool performs best at order 8. if it's lower, it will take lesser time to execute at the cost of reduced accuracy
   - keep_scratch (True/False): if set to False, it deletes all the scratch files generated during prediction
   - create_pdf (True/False): if set to true, it will use fix the errors in the searchable pdf created in the previous module.
