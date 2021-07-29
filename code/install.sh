@@ -2,7 +2,7 @@
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 echo 'PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile
 brew install git
-brew install python
+brew install python@3.8.3
 
 #Installing required python packages
 
@@ -16,6 +16,7 @@ then
 	git clone https://github.com/CAMeL-Lab/ced_word_alignment.git
 	cd ced_word_alignment
 	pip install -r requirements.txt
+	git checkout 92f7da0a8ec4a170c5096664b0eda77babe1e454
 	cd ..
 else
 	echo "ced_word_alignment already installed!"
