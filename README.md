@@ -11,8 +11,8 @@ In addition to the post-correction system, this repo contains modules that
 ![Arafix Layout](https://github.com/aizazansari/arafix_ocr/blob/841b9deca62abe53b5647474de4a72536fb0d37f/code/utils/Arafix%20Layout.png)
 
 ## Installation Guide
-<!-- 
-- Download srilm: Navigate to this [link](http://www.speech.sri.com/projects/srilm/download.html) and download version of 1.7.3 of srilm into the main directory of this repo -->
+
+- Download srilm: Navigate to this [link](http://www.speech.sri.com/projects/srilm/download.html) and download version of 1.7.3 of srilm into the main directory of this repo
 - Run the following commands:
 
   ```cd code```
