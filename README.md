@@ -8,6 +8,8 @@ In addition to the post-correction system, this repo contains modules that
 2) A tool that takes in an image and text (with positions for every word) and generates an embedded PDF
 3) Evaluate the quality of results of the system on the word level (when the ground truth is known)
 
+![Arafix Layout](https://github.com/aizazansari/arafix_ocr/blob/841b9deca62abe53b5647474de4a72536fb0d37f/code/utils/Arafix%20Layout.png)
+
 ## Installation Guide
 <!-- 
 - Download srilm: Navigate to this [link](http://www.speech.sri.com/projects/srilm/download.html) and download version of 1.7.3 of srilm into the main directory of this repo -->
