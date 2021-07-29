@@ -121,6 +121,7 @@ Configuration Parameters:
 ```
 
 ## Technical Documentation
+  - Versioning: As for python, version 3.8.3 was used. utils/dependencies.txt and install.sh contain the required packages with their respective versions.
   - Models: The models were built using the ```ngram-count``` function in the SRILM toolkit. The following specfications were used:
     - Order: 8
     - Smoothing: Kneser-Ney
