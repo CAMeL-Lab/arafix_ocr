@@ -1,12 +1,12 @@
-configparser
-argparse
-pandas 
-camel_tools
-pyarabic
-ocrspace
-requests
-PyPDF2
-img2pdf 
-pillow
-reportlab
-arabic_reshaper
+configparser = 5.0.2
+argparse = 1.4.0
+pandas = 1.0.5
+camel_tools =  1.1.0
+pyarabic = 0.6.10
+ocrspace = 2.2.1
+requests = 2.24.0
+PyPDF2 = 1.26.0
+img2pdf = 0.4.1
+pillow = 7.2.0
+reportlab = 3.5.68
+arabic_reshaper = 2.1.0
