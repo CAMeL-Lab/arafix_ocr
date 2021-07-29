@@ -2,7 +2,7 @@
 config_name="flexible.txt"
 book_name="columbia_aco000270"
 start_page="9"
-end_page="29"
+end_page="19"
 
 echo ""
 
