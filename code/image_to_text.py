@@ -262,7 +262,7 @@ def convert_book():
 	print("\n")
 	print("Results written in: ", ocr_path)
 
-pdfmetrics.registerFont(TTFont('Arabic', '/Users/anasjawed/Downloads/Amiri/Amiri-Regular.ttf'))
+pdfmetrics.registerFont(TTFont('Arabic', 'code/utils/Amiri-Regular.ttf'))
 	
 os.chdir("..")
 
