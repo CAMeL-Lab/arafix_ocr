@@ -261,10 +261,9 @@ def convert_book():
 
 	print("\n")
 	print("Results written in: ", ocr_path)
-
-pdfmetrics.registerFont(TTFont('Arabic', 'code/utils/Amiri-Regular.ttf'))
 	
 os.chdir("..")
+pdfmetrics.registerFont(TTFont('Arabic', 'code/utils/Amiri-Regular.ttf'))
 
 #add arguments to python file
 parser = argparse.ArgumentParser()
