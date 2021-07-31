@@ -1,12 +1,12 @@
 # Installing brew, git and python
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-echo 'PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile
-brew install git
-brew install python@3.8.3
+# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# echo 'PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile
+# brew install git
+# brew install python@3.8.3
 
 #Installing required python packages
 
-pip install -r code/utils/dependencies.txt
+pip install -r utils/dependencies.txt
 
 
 #installing ced_word_alignment
