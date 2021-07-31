@@ -342,11 +342,11 @@ ocr_exists = False
 pred_exists = False 
 
 
-
 check_parameters()
 
 check_exists()
 if not ground_exists:
+	print("Ground truth does not exist!")
 	exit(0)
 
 calculate_bounds()
