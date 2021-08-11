@@ -83,17 +83,10 @@ def calculate_bounds():
 #function to encode text
 def encode(line):
     new_l = []
-    line = araby.strip_shadda(araby.strip_harakat(line)).replace("آ", "ا").replace("إ", "ا").replace("أ", "ا")
-    new_line = ""
-    for letter in line:
-        if (ord(letter) < begin or ord(letter) > end) and (letter!=' '):
-            continue
-        new_line = new_line + letter
-    line = new_line
     
     for w in line.split():
         i = 0
-       	for c in w:
+        for c in w:
             if len(w)==1:
                 new_l.append(c)
             elif i == len(w) - 1:
@@ -103,7 +96,7 @@ def encode(line):
             else:
                 new_l.append("#" + c + "#")
             i += 1
-    return "<s> " + " ".join(new_l) + " </s>"
+    return ("<s> " + " ".join(new_l) + " </s>")
 
 #function to convert raw ocr to raw ocr encoded
 def write_encoded():
