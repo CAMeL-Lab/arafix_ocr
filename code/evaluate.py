@@ -123,7 +123,7 @@ def alignFilesBasic(start_page, end_page, OneEncodePrefix, OneEncodeFolder, TwoE
         TwoName = TwoEncodePrefix + str(i) + ".txt"
 
         #"python align_text.py -r ocr_tokenized.txt -c rafed_tokenized.txt -m basic -o sample/sample.ar"
-        command = "python3 " + alignerLocation + " -s " + OneEncodeFolder + OneName + " -t " + TwoEncodeFolder + TwoName 
+        command = "python " + alignerLocation + " -s " + OneEncodeFolder + OneName + " -t " + TwoEncodeFolder + TwoName 
         command +=  " -m basic -o " + saveAlignmentAs + results_prefix + str(i) 
 
         p = subprocess.getstatusoutput(command)

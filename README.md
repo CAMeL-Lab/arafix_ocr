@@ -13,6 +13,8 @@ In addition to the post-correction system, this repo contains modules that:
 ## Installation Guide
 
 - Download srilm: Navigate to this [link](http://www.speech.sri.com/projects/srilm/download.html) and download version of 1.7.3 of srilm into the main directory of this repo
+- Inside configs/default.txt, add the api key in line 2
+- Download models from this [link](http://www.speech.sri.com/projects/srilm/download.html). To start off, download the msa_5m.lm only
 - Run the following commands:
 
   ```cd code```
@@ -153,4 +155,12 @@ Configuration Parameters:
 Note: occasionally, the predicted output for a line will contain an impossible scenario such as: A #l# #a. Here, the 'A' token says that it is completely independent (A la), but the '#l#' that follows it says that it should be connected to the 'A' (Ala). In these cases, the default decoding decision is to split the word.
       
   - evaluate.py: This module uses ced_word_alignment tool to align the ground truth against ocr and predicted. Then it calculates word error rate using the following formula: (subs + deletions + insertions) / (subs + deletions + correct words) 
+
+## Contact us
+
+For any queries or concerns regarding the tool, feel free to contact us (the authors of the tool) on the following channels:
+- Aizaz Ansari (aizaz.ansari@nyu.edu)
+- Anas Jawed (anas.jawed@nyu.edu)
+
+
   
