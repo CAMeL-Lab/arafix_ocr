@@ -1,7 +1,7 @@
 # arafix_ocr
 
 ## Introduction
-This tool improves the output of generic OCR systems by utilizing an n-gram based post-correction approach. While most techniques that seek to improve Arabic OCR output focus on the Computer Vision aspect of converting image to text, the post correction module in our tool focuses on improving the output of OCR systems without any knowledge of the image and relying completely on the OCR text.
+This tool improves the output of generic OCR systems by utilizing an n-gram based post-correction approach. While most techniques that seek to improve Arabic OCR output focus on the Computer Vision aspect of converting image to text, the post correction module in our tool focuses on improving the output of OCR systems without any knowledge of the image and relying completely on the OCR text. 
 
 In addition to the post-correction system, this repo contains modules that: 
 1) Utilize an external OCR API to convert image to text
@@ -11,6 +11,8 @@ In addition to the post-correction system, this repo contains modules that:
 ![Arafix Layout](https://github.com/aizazansari/arafix_ocr/blob/841b9deca62abe53b5647474de4a72536fb0d37f/code/utils/Arafix%20Layout.png)
 
 ## Installation Guide
+
+You can view the video guide [here](https://drive.google.com/file/d/16rBqltKZ2vWwkrjNsTxvIFLl9QTFQbmF/view) or follow the below instructions.
 
 - Download srilm: Navigate to this [link](http://www.speech.sri.com/projects/srilm/download.html) and download version of 1.7.3 of srilm into the main directory of this repo
 - Inside configs/default.txt, add the api key in line 2
@@ -24,6 +26,8 @@ In addition to the post-correction system, this repo contains modules that:
   The previous commands will install all the required dependencies for arafix. The tool should be ready to use!
   
 ## Usage
+
+You can view the video guide [here](https://drive.google.com/file/d/16rBqltKZ2vWwkrjNsTxvIFLl9QTFQbmF/view) or follow the below instructions.
 
 Arafix has 3 main modules:
 1) image_to_text: converts image to text and searchable pdf
@@ -49,6 +53,8 @@ To run arafix, do the following:
 - end_page: which page should arafix run till (inclusive). Set it to "None" to run till the highest possible page.
 
 ### [Optional] Configuration
+
+You can view the video guide [here](https://drive.google.com/file/d/1w8k352Rs-ZoBe0_gJQyVzrijCP-JpTU9/view?usp=sharing) or follow the below instructions.
 
 Arafix runs with the default settings as described in the configs/default.txt file. If you wish to modify these settings, do the following:
 1) Create a copy of default.txt and modify the parameters within this file
