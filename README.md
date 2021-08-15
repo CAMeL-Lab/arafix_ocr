@@ -14,7 +14,7 @@ In addition to the post-correction system, this repo contains modules that:
 
 - Download srilm: Navigate to this [link](http://www.speech.sri.com/projects/srilm/download.html) and download version of 1.7.3 of srilm into the main directory of this repo
 - Inside configs/default.txt, add the api key in line 2
-- Download models from this [link](http://www.speech.sri.com/projects/srilm/download.html). To start off, download the msa_5m.lm only
+- Download models from this [link](https://drive.google.com/drive/folders/1TTcSZsC-NSo2TQbcznv3mSvus7m2i5Xp?usp=sharing). To start off, download the msa_5m.lm only
 - Run the following commands:
 
   ```cd code```
