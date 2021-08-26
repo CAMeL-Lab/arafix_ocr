@@ -106,10 +106,6 @@ def write_encoded():
 	except:
 		pass
 
-	# print("-Encoding raw ocr")
-	# print("Start Page: ", parameters["start_page"])
-	# print("End Page: ", parameters["end_page"])
-
 	for i in range(parameters["start_page"],parameters["end_page"]+1):
 
 		# print("Current Page: ", i, end = "\r")
@@ -127,7 +123,6 @@ def write_encoded():
 
 #function to decode text
 def decode(l):
-	#     l = l.replace("+", "#")
     # there is an unexpected case in disambig results - #A #B#. 
     # we are unsure of whether to split or merge this case, and currently we are spliting
     l = l.replace("# #", "").replace("+ ", "").replace("</s>", "").replace("<s>", "")
@@ -152,13 +147,8 @@ def write_decoded():
 	except:
 		pass
 
-	# print("-Decoding predicted output")
-	# print("Start Page: ", parameters["start_page"])
-	# print("End Page: ", parameters["end_page"])
 
 	for i in range(parameters["start_page"],parameters["end_page"]+1):
-
-		# print("Current Page: ", i, end = "\r")
 
 		original_file = open(prediction_path_encoded + "predicted_encoded_" + str(i) + ".txt","r", encoding="utf8")
 		decoded_text = decode(original_file.read())
@@ -167,7 +157,6 @@ def write_decoded():
 		original_file.close()
 		decoded_file.close()
 
-	# print("\n")
 	print("Results written in: ",prediction_path)
 
 #function to predict on raw ocr encoded and get predicte encoded

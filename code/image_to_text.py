@@ -49,7 +49,6 @@ def makeEmbeddedPDF(image_path, image_name, page_json, output_folder):
         allTop = [float(t["Top"]) for t in line["Words"]]
         avgTop = sum(allTop)/len(allTop)
         text = arabic_reshaper.reshape(str(lineText))
-    #     print(text)
 
         putText(can,text[::-1],(maxLeft/tiff_width)*A4[0], (avgTop/tiff_height)*A4[1] + 10)
 
@@ -236,10 +235,6 @@ def convert_book():
 			if "ocr_space_output_" + get_page_num(file_name) + ".txt" in converted_files:
 				continue
 
-		# file_name_pdf = file_name.strip(".tif")+".pdf"
-		# with open(raw_path+file_name_pdf,"wb") as f:
-		# 	f.write(img2pdf.convert(raw_path+file_name))
-
 		page_json = ocr_space_func(filename= raw_path+file_name, language='Ara', api_key = parameters["api_key"], create_pdf = False)
 		page_text = " \n".join([ " ".join(t.split("\t")[::-1]) for t in json.loads(page_json)["ParsedResults"][0]["ParsedText"].split("\r\n") ])
 
@@ -252,13 +247,8 @@ def convert_book():
 		output_json.close()
 
 		if parameters["create_pdf"] == "True":
-			# print("making embeddable")
 			makeEmbeddedPDF(raw_path, file_name, json.loads(page_json), embed_path)
-			# page_url = json.loads(page_json)["SearchablePDFURL"]
-			# r = requests.get(page_url, allow_redirects=True)
-			# open(embed_path + "ocr_space_output_embed_pdf" + get_page_num(file_name) + ".pdf", 'wb').write(r.content)
-
-
+			
 	print("\n")
 	print("Results written in: ", ocr_path)
 	
