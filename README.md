@@ -16,7 +16,7 @@ You can view the video guide [here](https://drive.google.com/file/d/16rBqltKZ2vW
 
 - Download srilm: Navigate to this [link](http://www.speech.sri.com/projects/srilm/download.html) and download version of 1.7.3 of srilm into the main directory of this repo
 - Inside configs/default.txt, add the api key in line 2
-- Download models from this [link](https://drive.google.com/drive/folders/1TTcSZsC-NSo2TQbcznv3mSvus7m2i5Xp?usp=sharing). To start off, download the msa_5m.lm only
+- Download models from this [link](https://drive.google.com/drive/folders/1TTcSZsC-NSo2TQbcznv3mSvus7m2i5Xp?usp=sharing) and put them inside the models subfolder. To start off, download the msa_5m.lm only
 - Run the following command:
   
   ```sh install.sh```
@@ -37,12 +37,12 @@ IMPORTANT NOTE: As of now, the predict module is not ready for use. Thus, all re
 To run arafix, do the following:
 1) Open the data folder and create a subfolder with the name of the book you intend to run arafix on
 2) Within the book's subfolder, create a subfolder named <book_name>_raw_images
-3) Within the <book_name>_raw_images subfolder, add all the pages of the respective book as .tif files
+3) Within the <book_name>_raw_images subfolder, add all the images you wish to scan. To start off, you can download pages of a specific ACO book from this [link](https://nyu.app.box.com/s/7bp5pxmzbs5b3hthsbhvnibe5hfzq75i/folder/139338071947)
 4) Optionally, if you intend to perform evaluation of your result (only if you have ground truth), create another subfolder within the <book_name> folder called <book_name>_ground_truth. This folder should contain the ground truth text files for your book (one file for every page). 
 5) Open code/arafix.sh in a text editor
 6) Modify variables* as needed
 7) Open terminal and navigate to arafix_ocr
-9) ```sh arafix.sh 'book_name'```
+8) ```sh arafix.sh 'book_name'```
 
 *arafix.sh variables:
 - config_name: which config file should arafix read the settings from
