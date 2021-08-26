@@ -4,6 +4,8 @@ book_name="sample_book"
 start_page="None"
 end_page="None"
 
+cd code
+
 echo ""
 
 echo "~~~RUNNING ARAFIX FOR BOOK: ${book_name}~~~"

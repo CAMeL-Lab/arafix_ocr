@@ -17,9 +17,7 @@ You can view the video guide [here](https://drive.google.com/file/d/16rBqltKZ2vW
 - Download srilm: Navigate to this [link](http://www.speech.sri.com/projects/srilm/download.html) and download version of 1.7.3 of srilm into the main directory of this repo
 - Inside configs/default.txt, add the api key in line 2
 - Download models from this [link](https://drive.google.com/drive/folders/1TTcSZsC-NSo2TQbcznv3mSvus7m2i5Xp?usp=sharing). To start off, download the msa_5m.lm only
-- Run the following commands:
-
-  ```cd code```
+- Run the following command:
   
   ```sh install.sh```
   
@@ -44,7 +42,6 @@ To run arafix, do the following:
 5) Open code/arafix.sh in a text editor
 6) Modify variables* as needed
 7) Open terminal and navigate to arafix_ocr
-8) ```cd code```
 9) ```sh arafix.sh 'book_name'```
 
 *arafix.sh variables:
