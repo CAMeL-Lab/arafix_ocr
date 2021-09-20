@@ -2,7 +2,6 @@ configparser == 5.0.2
 argparse == 1.4.0
 pandas == 1.0.5
 camel_tools ==  1.1.0
-pyarabic == 0.6.10
 ocrspace == 2.2.1
 requests == 2.24.0
 PyPDF2 == 1.26.0
