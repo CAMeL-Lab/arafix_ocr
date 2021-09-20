@@ -42,11 +42,16 @@ To run arafix, do the following:
 5) Open code/arafix.sh in a text editor
 6) Modify variables* as needed
 7) Open terminal and navigate to arafix_ocr
-8) Now run the following commandd```sh arafix.sh <book_name> <names of modules (image_to_text, predict and evaluate) to run separated by space>```
+8) Now run the following command 
+
+  ```sh arafix.sh <book_name> <names of modules (image_to_text, predict and evaluate) to run separated by space>```
+  
   For example, if you would like to run the image_to_text and evaluate module on sample_book, the command would look like as follows:
-  ```
-  sh arafix.sh sample_book image_to_text evaluate
-  ```
+  
+
+  ```sh arafix.sh sample_book image_to_text evaluate```
+
+  
   This example command is also the suggested command since image_to_text and evaluate modules work perfectly fine but predict module might not generate the desired results.
   
 *arafix.sh variables:
