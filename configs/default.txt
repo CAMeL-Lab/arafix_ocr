@@ -1,0 +1,18 @@
+[image_to_text]
+api_key = XXXXXXXXXXXX
+skip_converted = True
+create_pdf = True
+
+[predict]
+map_name = segmenter.map
+model_name = m2.lm
+order = 8
+keep_scratch = True
+create_pdf = False
+skip_converted = True
+
+[evaluate]
+map_name = segmenter.map
+model_name = m2.lm
+order = 8
+keep_scratch = True

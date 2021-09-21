@@ -119,5 +119,10 @@ Note: occasionally, the predicted output for a line will contain an impossible s
 - Report any issues with the tool [here](https://github.com/aizazansari/arafix_ocr/issues)
 - Feel free to contribute to the tool and add new features using [pull requests](https://github.com/aizazansari/arafix_ocr/pulls)
 
+## License
 
+Copyright 2021 New York University Abu Dhabi.
+
+arafix_ocr is available under the Apache License, Version 2.0.
+See the [LICENSE](/LICENSE) file for more info.
   
